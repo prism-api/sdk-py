@@ -8,7 +8,7 @@ import typing
 
 import typing_extensions
 
-from prism_py_sdk.core.serialization import FieldMetadata
+from prism.core.serialization import FieldMetadata
 
 
 class Base(typing_extensions.TypedDict):

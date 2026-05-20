@@ -3,12 +3,12 @@
   "generatorName": "fernapi/fern-python-sdk",
   "generatorVersion": "5.10.0",
   "generatorConfig": {
-    "package_name": "prism_py_sdk",
+    "package_name": "prism",
     "client_class_name": "ApiClient"
   },
   "originGitCommit": "d50c0ba8703cfb82fa5a5d8b6a238000644c9167",
   "originGitCommitIsDirty": true,
   "invokedBy": "manual",
-  "requestedVersion": "1.0.5",
-  "sdkVersion": "1.0.5"
+  "requestedVersion": "1.1.0",
+  "sdkVersion": "1.1.0"
 }

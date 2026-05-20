@@ -13,6 +13,7 @@ The Prism Python library provides convenient access to the Prism APIs from Pytho
 - [Environments](#environments)
 - [Async Client](#async-client)
 - [Exception Handling](#exception-handling)
+- [Websockets](#websockets)
 - [Advanced](#advanced)
   - [Access Raw Response Data](#access-raw-response-data)
   - [Retries](#retries)
@@ -35,7 +36,7 @@ A full reference for this library is available [here](https://github.com/prism-a
 Instantiate and use the client with the following:
 
 ```python
-from prism_py_sdk import ApiClient, SolanaDexWalletProfilePayloadOptions
+from prism import ApiClient, SolanaDexWalletProfilePayloadOptions
 
 client = ApiClient(
     api_key="<value>",
@@ -58,8 +59,8 @@ client.solana.dex.get_wallet_profile(
 This SDK allows you to configure different environments for API requests.
 
 ```python
-from prism_py_sdk import ApiClient
-from prism_py_sdk.environment import ApiClientEnvironment
+from prism import ApiClient
+from prism.environment import ApiClientEnvironment
 
 client = ApiClient(
     environment=ApiClientEnvironment.DEFAULT,
@@ -73,7 +74,7 @@ The SDK also exports an `async` client so that you can make non-blocking calls t
 ```python
 import asyncio
 
-from prism_py_sdk import AsyncApiClient
+from prism import AsyncApiClient
 
 client = AsyncApiClient(
     api_key="<value>",
@@ -102,13 +103,43 @@ When the API returns a non-success status code (4xx or 5xx response), a subclass
 will be thrown.
 
 ```python
-from prism_py_sdk.core.api_error import ApiError
+from prism.core.api_error import ApiError
 
 try:
     client.solana.dex.get_wallet_profile(...)
 except ApiError as e:
     print(e.status_code)
     print(e.body)
+```
+
+## Websockets
+
+The SDK supports both sync and async websocket connections for real-time, low-latency communication. Sockets can be created using the `connect` method, which returns a context manager. 
+You can either iterate through the returned `SocketClient` to process messages as they arrive, or attach handlers to respond to specific events.
+
+```python
+from prism import ApiClient
+
+client = ApiClient(...)
+
+# Connect to the websocket (Sync)
+with client.solana_dex_prices_subscription.connect() as socket:
+    # Iterate over the messages as they arrive
+    for message in socket:
+        print(message)
+
+    # Or, attach handlers to specific events
+    socket.on(EventType.MESSAGE, lambda message: print("received message", message))
+
+import asyncio
+from prism import AsyncApiClient
+
+client = AsyncApiClient(...)
+
+# Connect to the websocket (Async)
+async with client.solana_dex_prices_subscription.connect() as socket:
+    async for message in socket:
+        print(message)
 ```
 
 ## Advanced
@@ -119,7 +150,7 @@ The SDK provides access to raw response data, including headers, through the `.w
 The `.with_raw_response` property returns a "raw" client that can be used to access the `.headers` and `.data` attributes.
 
 ```python
-from prism_py_sdk import ApiClient
+from prism import ApiClient
 
 client = ApiClient(...)
 response = client.solana.dex.with_raw_response.get_wallet_profile(...)
@@ -163,7 +194,7 @@ client.solana.dex.get_wallet_profile(..., request_options={
 The SDK defaults to a 60 second timeout. You can configure this with a timeout option at the client or request level.
 
 ```python
-from prism_py_sdk import ApiClient
+from prism import ApiClient
 
 client = ApiClient(..., timeout=20.0)
 
@@ -180,7 +211,7 @@ and transports.
 
 ```python
 import httpx
-from prism_py_sdk import ApiClient
+from prism import ApiClient
 
 client = ApiClient(
     ...,

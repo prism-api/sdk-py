@@ -1,6 +1,6 @@
 # Reference
 ## Solana Dex
-<details><summary><code>client.solana.dex.<a href="src/prism_py_sdk/solana/dex/client.py">get_wallet_profile</a>(...) -> SolanaDexWalletProfile</code></summary>
+<details><summary><code>client.solana.dex.<a href="src/prism/solana/dex/client.py">get_wallet_profile</a>(...) -> SolanaDexWalletProfile</code></summary>
 <dl>
 <dd>
 
@@ -27,8 +27,8 @@ Returns a wallet profile for a specific wallet.
 <dd>
 
 ```python
-from prism_py_sdk import ApiClient, SolanaDexWalletProfilePayloadOptions
-from prism_py_sdk.environment import ApiClientEnvironment
+from prism import ApiClient, SolanaDexWalletProfilePayloadOptions
+from prism.environment import ApiClientEnvironment
 
 client = ApiClient(
     api_key="<value>",
@@ -88,7 +88,7 @@ client.solana.dex.get_wallet_profile(
 </dl>
 </details>
 
-<details><summary><code>client.solana.dex.<a href="src/prism_py_sdk/solana/dex/client.py">search_wallet_profiles</a>(...) -> SearchWalletProfilesDexResponse</code></summary>
+<details><summary><code>client.solana.dex.<a href="src/prism/solana/dex/client.py">search_wallet_profiles</a>(...) -> SearchWalletProfilesDexResponse</code></summary>
 <dl>
 <dd>
 
@@ -115,8 +115,8 @@ Filter, query, and sort wallet profiles based on specified metrics and condition
 <dd>
 
 ```python
-from prism_py_sdk import ApiClient, SolanaDexWalletProfileSearchPayloadQuery, SolanaDexProfileSearchPayloadSort, SolanaDexProfileSearchPayloadFilter, SolanaDexWalletProfilePayloadOptions
-from prism_py_sdk.environment import ApiClientEnvironment
+from prism import ApiClient, SolanaDexWalletProfileSearchPayloadQuery, SolanaDexProfileSearchPayloadSort, SolanaDexProfileSearchPayloadFilter, SolanaDexWalletProfilePayloadOptions
+from prism.environment import ApiClientEnvironment
 
 client = ApiClient(
     api_key="<value>",
@@ -229,7 +229,7 @@ client.solana.dex.search_wallet_profiles(
 </dl>
 </details>
 
-<details><summary><code>client.solana.dex.<a href="src/prism_py_sdk/solana/dex/client.py">get_token_profile</a>(...) -> SolanaDexTokenProfile</code></summary>
+<details><summary><code>client.solana.dex.<a href="src/prism/solana/dex/client.py">get_token_profile</a>(...) -> SolanaDexTokenProfile</code></summary>
 <dl>
 <dd>
 
@@ -256,8 +256,8 @@ Returns the profile for a specific token.
 <dd>
 
 ```python
-from prism_py_sdk import ApiClient, SolanaDexTokenProfilePayloadOptions
-from prism_py_sdk.environment import ApiClientEnvironment
+from prism import ApiClient, SolanaDexTokenProfilePayloadOptions
+from prism.environment import ApiClientEnvironment
 
 client = ApiClient(
     api_key="<value>",
@@ -318,7 +318,7 @@ client.solana.dex.get_token_profile(
 </dl>
 </details>
 
-<details><summary><code>client.solana.dex.<a href="src/prism_py_sdk/solana/dex/client.py">search_token_profiles</a>(...) -> SearchTokenProfilesDexResponse</code></summary>
+<details><summary><code>client.solana.dex.<a href="src/prism/solana/dex/client.py">search_token_profiles</a>(...) -> SearchTokenProfilesDexResponse</code></summary>
 <dl>
 <dd>
 
@@ -345,8 +345,8 @@ Filter, query, and sort token profiles based on specified metrics and conditions
 <dd>
 
 ```python
-from prism_py_sdk import ApiClient, SolanaDexTokenProfileSearchPayloadQueryField, SolanaDexProfileSearchPayloadSort, SolanaDexProfileSearchPayloadFilter, SolanaDexTokenProfilePayloadOptions
-from prism_py_sdk.environment import ApiClientEnvironment
+from prism import ApiClient, SolanaDexTokenProfileSearchPayloadQueryField, SolanaDexProfileSearchPayloadSort, SolanaDexProfileSearchPayloadFilter, SolanaDexTokenProfilePayloadOptions
+from prism.environment import ApiClientEnvironment
 
 client = ApiClient(
     api_key="<value>",
@@ -460,7 +460,7 @@ client.solana.dex.search_token_profiles(
 </dl>
 </details>
 
-<details><summary><code>client.solana.dex.<a href="src/prism_py_sdk/solana/dex/client.py">get_trades</a>(...) -> GetTradesDexResponse</code></summary>
+<details><summary><code>client.solana.dex.<a href="src/prism/solana/dex/client.py">get_trades</a>(...) -> GetTradesDexResponse</code></summary>
 <dl>
 <dd>
 
@@ -487,8 +487,8 @@ Returns trades for a wallet, token or both.
 <dd>
 
 ```python
-from prism_py_sdk import ApiClient
-from prism_py_sdk.environment import ApiClientEnvironment
+from prism import ApiClient
+from prism.environment import ApiClientEnvironment
 
 client = ApiClient(
     api_key="<value>",
@@ -558,7 +558,7 @@ client.solana.dex.get_trades(
 </dl>
 </details>
 
-<details><summary><code>client.solana.dex.<a href="src/prism_py_sdk/solana/dex/client.py">get_swaps</a>(...) -> GetSwapsDexResponse</code></summary>
+<details><summary><code>client.solana.dex.<a href="src/prism/solana/dex/client.py">get_swaps</a>(...) -> GetSwapsDexResponse</code></summary>
 <dl>
 <dd>
 
@@ -585,8 +585,8 @@ Returns swaps for a wallet, token or both.
 <dd>
 
 ```python
-from prism_py_sdk import ApiClient
-from prism_py_sdk.environment import ApiClientEnvironment
+from prism import ApiClient
+from prism.environment import ApiClientEnvironment
 
 client = ApiClient(
     api_key="<value>",
@@ -656,7 +656,7 @@ client.solana.dex.get_swaps(
 </dl>
 </details>
 
-<details><summary><code>client.solana.dex.<a href="src/prism_py_sdk/solana/dex/client.py">get_price</a>(...) -> typing.List[SolanaDexPrice]</code></summary>
+<details><summary><code>client.solana.dex.<a href="src/prism/solana/dex/client.py">get_price</a>(...) -> typing.List[SolanaDexPrice]</code></summary>
 <dl>
 <dd>
 
@@ -683,8 +683,8 @@ Returns prices for one or more tokens.
 <dd>
 
 ```python
-from prism_py_sdk import ApiClient
-from prism_py_sdk.environment import ApiClientEnvironment
+from prism import ApiClient
+from prism.environment import ApiClientEnvironment
 
 client = ApiClient(
     api_key="<value>",
@@ -731,7 +731,7 @@ client.solana.dex.get_price(
 </dl>
 </details>
 
-<details><summary><code>client.solana.dex.<a href="src/prism_py_sdk/solana/dex/client.py">get_price_stats</a>(...) -> typing.List[SolanaDexPriceStats]</code></summary>
+<details><summary><code>client.solana.dex.<a href="src/prism/solana/dex/client.py">get_price_stats</a>(...) -> typing.List[SolanaDexPriceStats]</code></summary>
 <dl>
 <dd>
 
@@ -758,8 +758,8 @@ Returns price stats for one or more tokens.
 <dd>
 
 ```python
-from prism_py_sdk import ApiClient
-from prism_py_sdk.environment import ApiClientEnvironment
+from prism import ApiClient
+from prism.environment import ApiClientEnvironment
 
 client = ApiClient(
     api_key="<value>",
@@ -806,7 +806,7 @@ client.solana.dex.get_price_stats(
 </dl>
 </details>
 
-<details><summary><code>client.solana.dex.<a href="src/prism_py_sdk/solana/dex/client.py">get_price_candles</a>(...) -> typing.List[SolanaDexPriceCandle]</code></summary>
+<details><summary><code>client.solana.dex.<a href="src/prism/solana/dex/client.py">get_price_candles</a>(...) -> typing.List[SolanaDexPriceCandle]</code></summary>
 <dl>
 <dd>
 
@@ -833,8 +833,8 @@ Returns price candles for a specific token.
 <dd>
 
 ```python
-from prism_py_sdk import ApiClient
-from prism_py_sdk.environment import ApiClientEnvironment
+from prism import ApiClient
+from prism.environment import ApiClientEnvironment
 import datetime
 
 client = ApiClient(
@@ -924,7 +924,7 @@ Must be combined with `to`.
 </dl>
 </details>
 
-<details><summary><code>client.solana.dex.<a href="src/prism_py_sdk/solana/dex/client.py">get_price_history</a>(...) -> typing.List[SolanaDexPriceHistory]</code></summary>
+<details><summary><code>client.solana.dex.<a href="src/prism/solana/dex/client.py">get_price_history</a>(...) -> typing.List[SolanaDexPriceHistory]</code></summary>
 <dl>
 <dd>
 
@@ -951,8 +951,8 @@ Returns price history for one or more tokens.
 <dd>
 
 ```python
-from prism_py_sdk import ApiClient
-from prism_py_sdk.environment import ApiClientEnvironment
+from prism import ApiClient
+from prism.environment import ApiClientEnvironment
 import datetime
 
 client = ApiClient(
