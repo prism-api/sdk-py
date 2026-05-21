@@ -3,10 +3,11 @@
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fprism-api%2Fsdk-py)
 [![pypi](https://img.shields.io/pypi/v/prism-py-sdk)](https://pypi.python.org/pypi/prism-py-sdk)
 
-The Prism Python library provides convenient access to the Prism APIs from Python.
+The Prism API SDK provides convenient access to the Prism APIs from your favorite programming language.
 
 ## Table of Contents
 
+- [Documentation](#documentation)
 - [Installation](#installation)
 - [Reference](#reference)
 - [Usage](#usage)
@@ -20,6 +21,10 @@ The Prism Python library provides convenient access to the Prism APIs from Pytho
   - [Timeouts](#timeouts)
   - [Custom Client](#custom-client)
 - [Contributing](#contributing)
+
+## Documentation
+
+API reference documentation is available [here](https://docs.prismapi.io/api-reference).
 
 ## Installation
 
