@@ -95,7 +95,7 @@ class TestDefaultClientsWithoutAiohttp(unittest.TestCase):
 
             with self.assertRaises(RuntimeError) as ctx:
                 prism._default_clients.DefaultAioHttpClient()
-            self.assertIn("pip install prism-sdk[aiohttp]", str(ctx.exception))
+            self.assertIn("pip install prism-py-sdk[aiohttp]", str(ctx.exception))
 
         importlib.reload(prism._default_clients)
 
