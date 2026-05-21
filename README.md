@@ -36,13 +36,14 @@ A full reference for this library is available [here](https://github.com/prism-a
 Instantiate and use the client with the following:
 
 ```python
-from prism import ApiClient, SolanaDexWalletProfilePayloadOptions
+from prism import Client
+from prism.api import SolanaDexWalletProfilePayloadOptions
 
-client = ApiClient(
+client = Client(
     api_key="<value>",
 )
 
-client.solana.dex.get_wallet_profile(
+client.api.solana.dex.get_wallet_profile(
     wallet="suqh5sHtr8HyJ7q8scBimULPkPpA557prMG47xCHQfK",
     options=SolanaDexWalletProfilePayloadOptions(
         include_metadata=True,
@@ -59,11 +60,11 @@ client.solana.dex.get_wallet_profile(
 This SDK allows you to configure different environments for API requests.
 
 ```python
-from prism import ApiClient
-from prism.environment import ApiClientEnvironment
+from prism import Client
+from prism.environment import ClientEnvironment
 
-client = ApiClient(
-    environment=ApiClientEnvironment.DEFAULT,
+client = Client(
+    environment=ClientEnvironment.PRODUCTION,
 )
 ```
 
@@ -73,16 +74,17 @@ The SDK also exports an `async` client so that you can make non-blocking calls t
 
 ```python
 import asyncio
+from prism.api import SolanaDexWalletProfilePayloadOptions
 
-from prism import AsyncApiClient
+from prism import AsyncClient
 
-client = AsyncApiClient(
+client = AsyncClient(
     api_key="<value>",
 )
 
 
 async def main() -> None:
-    await client.solana.dex.get_wallet_profile(
+    await client.api.solana.dex.get_wallet_profile(
         wallet="suqh5sHtr8HyJ7q8scBimULPkPpA557prMG47xCHQfK",
         options=SolanaDexWalletProfilePayloadOptions(
             include_metadata=True,
@@ -106,7 +108,7 @@ will be thrown.
 from prism.core.api_error import ApiError
 
 try:
-    client.solana.dex.get_wallet_profile(...)
+    client.api.solana.dex.get_wallet_profile(...)
 except ApiError as e:
     print(e.status_code)
     print(e.body)
@@ -118,12 +120,12 @@ The SDK supports both sync and async websocket connections for real-time, low-la
 You can either iterate through the returned `SocketClient` to process messages as they arrive, or attach handlers to respond to specific events.
 
 ```python
-from prism import ApiClient
+from prism import Client
 
-client = ApiClient(...)
+client = Client(...)
 
 # Connect to the websocket (Sync)
-with client.solana_dex_prices_subscription.connect() as socket:
+with client.subscription.connect(...) as socket:
     # Iterate over the messages as they arrive
     for message in socket:
         print(message)
@@ -132,12 +134,12 @@ with client.solana_dex_prices_subscription.connect() as socket:
     socket.on(EventType.MESSAGE, lambda message: print("received message", message))
 
 import asyncio
-from prism import AsyncApiClient
+from prism import AsyncClient
 
-client = AsyncApiClient(...)
+client = AsyncClient(...)
 
 # Connect to the websocket (Async)
-async with client.solana_dex_prices_subscription.connect() as socket:
+async with client.subscription.connect(...) as socket:
     async for message in socket:
         print(message)
 ```
@@ -150,10 +152,10 @@ The SDK provides access to raw response data, including headers, through the `.w
 The `.with_raw_response` property returns a "raw" client that can be used to access the `.headers` and `.data` attributes.
 
 ```python
-from prism import ApiClient
+from prism import Client
 
-client = ApiClient(...)
-response = client.solana.dex.with_raw_response.get_wallet_profile(...)
+client = Client(...)
+response = client.api.solana.dex.with_raw_response.get_wallet_profile(...)
 print(response.headers)  # access the response headers
 print(response.status_code)  # access the response status code
 print(response.data)  # access the underlying object
@@ -184,7 +186,7 @@ Which status codes are retried depends on the `retryStatusCodes` generator confi
 Use the `max_retries` request option to configure this behavior.
 
 ```python
-client.solana.dex.get_wallet_profile(..., request_options={
+client.api.solana.dex.get_wallet_profile(..., request_options={
     "max_retries": 1
 })
 ```
@@ -194,12 +196,12 @@ client.solana.dex.get_wallet_profile(..., request_options={
 The SDK defaults to a 60 second timeout. You can configure this with a timeout option at the client or request level.
 
 ```python
-from prism import ApiClient
+from prism import Client
 
-client = ApiClient(..., timeout=20.0)
+client = Client(..., timeout=20.0)
 
 # Override timeout for a specific method
-client.solana.dex.get_wallet_profile(..., request_options={
+client.api.solana.dex.get_wallet_profile(..., request_options={
     "timeout_in_seconds": 1
 })
 ```
@@ -211,9 +213,9 @@ and transports.
 
 ```python
 import httpx
-from prism import ApiClient
+from prism import Client
 
-client = ApiClient(
+client = Client(
     ...,
     httpx_client=httpx.Client(
         proxy="http://my.test.proxy.example.com",

@@ -4,11 +4,12 @@
   "generatorVersion": "5.10.0",
   "generatorConfig": {
     "package_name": "prism",
-    "client_class_name": "ApiClient"
+    "client_class_name": "Client",
+    "should_generate_websocket_clients": true
   },
   "originGitCommit": "d50c0ba8703cfb82fa5a5d8b6a238000644c9167",
   "originGitCommitIsDirty": true,
   "invokedBy": "manual",
-  "requestedVersion": "1.1.0",
-  "sdkVersion": "1.1.0"
+  "requestedVersion": "1.2.0",
+  "sdkVersion": "1.2.0"
 }

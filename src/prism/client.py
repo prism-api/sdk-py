@@ -7,24 +7,27 @@ import typing
 import httpx
 from .core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .core.logging import LogConfig, Logger
-from .environment import ApiClientEnvironment
+from .environment import ClientEnvironment
 
 if typing.TYPE_CHECKING:
-    from .solana.client import AsyncSolanaClient, SolanaClient
+    from .api.client import ApiClient, AsyncApiClient
 
 
-class ApiClient:
+class Client:
     """
     Use this class to access the different functions within the SDK. You can instantiate any number of clients with different configuration that will propagate to these functions.
 
     Parameters
     ----------
-    environment : ApiClientEnvironment
-        The environment to use for requests from the client. from .environment import ApiClientEnvironment
+    base_url : typing.Optional[str]
+        The base url to use for requests from the client.
+
+    environment : ClientEnvironment
+        The environment to use for requests from the client. from .environment import ClientEnvironment
 
 
 
-        Defaults to ApiClientEnvironment.DEFAULT
+        Defaults to ClientEnvironment.PRODUCTION
 
 
 
@@ -46,9 +49,9 @@ class ApiClient:
 
     Examples
     --------
-    from prism import ApiClient
+    from prism import Client
 
-    client = ApiClient(
+    client = Client(
         api_key="YOUR_API_KEY",
     )
     """
@@ -56,7 +59,8 @@ class ApiClient:
     def __init__(
         self,
         *,
-        environment: ApiClientEnvironment = ApiClientEnvironment.DEFAULT,
+        base_url: typing.Optional[str] = None,
+        environment: ClientEnvironment = ClientEnvironment.PRODUCTION,
         api_key: str,
         headers: typing.Optional[typing.Dict[str, str]] = None,
         timeout: typing.Optional[float] = None,
@@ -68,7 +72,7 @@ class ApiClient:
             timeout if timeout is not None else 60 if httpx_client is None else httpx_client.timeout.read
         )
         self._client_wrapper = SyncClientWrapper(
-            environment=environment,
+            base_url=_get_base_url(base_url=base_url, environment=environment),
             api_key=api_key,
             headers=headers,
             httpx_client=httpx_client
@@ -79,15 +83,15 @@ class ApiClient:
             timeout=_defaulted_timeout,
             logging=logging,
         )
-        self._solana: typing.Optional[SolanaClient] = None
+        self._api: typing.Optional[ApiClient] = None
 
     @property
-    def solana(self):
-        if self._solana is None:
-            from .solana.client import SolanaClient  # noqa: E402
+    def api(self):
+        if self._api is None:
+            from .api.client import ApiClient  # noqa: E402
 
-            self._solana = SolanaClient(client_wrapper=self._client_wrapper)
-        return self._solana
+            self._api = ApiClient(client_wrapper=self._client_wrapper)
+        return self._api
 
 
 def _make_default_async_client(
@@ -108,18 +112,21 @@ def _make_default_async_client(
     return httpx.AsyncClient(timeout=timeout)
 
 
-class AsyncApiClient:
+class AsyncClient:
     """
     Use this class to access the different functions within the SDK. You can instantiate any number of clients with different configuration that will propagate to these functions.
 
     Parameters
     ----------
-    environment : ApiClientEnvironment
-        The environment to use for requests from the client. from .environment import ApiClientEnvironment
+    base_url : typing.Optional[str]
+        The base url to use for requests from the client.
+
+    environment : ClientEnvironment
+        The environment to use for requests from the client. from .environment import ClientEnvironment
 
 
 
-        Defaults to ApiClientEnvironment.DEFAULT
+        Defaults to ClientEnvironment.PRODUCTION
 
 
 
@@ -141,9 +148,9 @@ class AsyncApiClient:
 
     Examples
     --------
-    from prism import AsyncApiClient
+    from prism import AsyncClient
 
-    client = AsyncApiClient(
+    client = AsyncClient(
         api_key="YOUR_API_KEY",
     )
     """
@@ -151,7 +158,8 @@ class AsyncApiClient:
     def __init__(
         self,
         *,
-        environment: ApiClientEnvironment = ApiClientEnvironment.DEFAULT,
+        base_url: typing.Optional[str] = None,
+        environment: ClientEnvironment = ClientEnvironment.PRODUCTION,
         api_key: str,
         headers: typing.Optional[typing.Dict[str, str]] = None,
         timeout: typing.Optional[float] = None,
@@ -163,7 +171,7 @@ class AsyncApiClient:
             timeout if timeout is not None else 60 if httpx_client is None else httpx_client.timeout.read
         )
         self._client_wrapper = AsyncClientWrapper(
-            environment=environment,
+            base_url=_get_base_url(base_url=base_url, environment=environment),
             api_key=api_key,
             headers=headers,
             httpx_client=httpx_client
@@ -172,12 +180,21 @@ class AsyncApiClient:
             timeout=_defaulted_timeout,
             logging=logging,
         )
-        self._solana: typing.Optional[AsyncSolanaClient] = None
+        self._api: typing.Optional[AsyncApiClient] = None
 
     @property
-    def solana(self):
-        if self._solana is None:
-            from .solana.client import AsyncSolanaClient  # noqa: E402
+    def api(self):
+        if self._api is None:
+            from .api.client import AsyncApiClient  # noqa: E402
 
-            self._solana = AsyncSolanaClient(client_wrapper=self._client_wrapper)
-        return self._solana
+            self._api = AsyncApiClient(client_wrapper=self._client_wrapper)
+        return self._api
+
+
+def _get_base_url(*, base_url: typing.Optional[str] = None, environment: ClientEnvironment) -> str:
+    if base_url is not None:
+        return base_url
+    elif environment is not None:
+        return environment.value
+    else:
+        raise Exception("Please pass in either base_url or environment to construct the client")
