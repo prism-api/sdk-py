@@ -3,7 +3,7 @@
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fprism-api%2Fsdk-py)
 [![pypi](https://img.shields.io/pypi/v/prism-py-sdk)](https://pypi.python.org/pypi/prism-py-sdk)
 
-The Prism API SDK provides convenient access to the Prism APIs from your favorite programming language.
+The Prism SDKs provide convenient access to the Prism API from your favorite programming language.
 
 ## Table of Contents
 
