@@ -6,8 +6,16 @@ import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class UnsubscribeSolanaDexWalletProfilesParams(UniversalBaseModel):
-    wallets: typing.Optional[typing.List[str]] = None
+class SubscribeSolanaAssetsTransfersParams(UniversalBaseModel):
+    from_addresses: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    """
+    The from addresses to filter by. Leave empty to subscribe to all from addresses.
+    """
+
+    to_addresses: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    """
+    The to addresses to filter by. Leave empty to subscribe to all to addresses.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

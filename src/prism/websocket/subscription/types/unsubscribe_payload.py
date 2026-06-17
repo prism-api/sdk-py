@@ -6,13 +6,14 @@ import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .subscription_method_enum import SubscriptionMethodEnum
 from .subscription_topic_enum import SubscriptionTopicEnum
-from .unsubscribe_payload_params import UnsubscribePayloadParams
 
 
 class UnsubscribePayload(UniversalBaseModel):
     method: typing.Optional[SubscriptionMethodEnum] = None
-    topic: typing.Optional[SubscriptionTopicEnum] = None
-    params: typing.Optional[UnsubscribePayloadParams] = None
+    topics: typing.Optional[typing.List[SubscriptionTopicEnum]] = pydantic.Field(default=None)
+    """
+    The topics to unsubscribe from. Leave empty to unsubscribe from all topics.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

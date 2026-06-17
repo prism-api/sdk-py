@@ -46,7 +46,7 @@ class RawDexClient:
     def get_wallet_profile(
         self,
         *,
-        wallet: str,
+        wallet_address: typing.Optional[str] = OMIT,
         options: typing.Optional[SolanaDexWalletProfilePayloadOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[SolanaDexWalletProfile]:
@@ -55,7 +55,7 @@ class RawDexClient:
 
         Parameters
         ----------
-        wallet : str
+        wallet_address : typing.Optional[str]
             Wallet address to retrieve the profile for.
 
         options : typing.Optional[SolanaDexWalletProfilePayloadOptions]
@@ -72,7 +72,7 @@ class RawDexClient:
             "v1/solana/dex/profiles/wallets/get-profile",
             method="POST",
             json={
-                "wallet": wallet,
+                "wallet_address": wallet_address,
                 "options": convert_and_respect_annotation_metadata(
                     object_=options, annotation=SolanaDexWalletProfilePayloadOptions, direction="write"
                 ),
@@ -303,7 +303,7 @@ class RawDexClient:
     def get_token_profile(
         self,
         *,
-        token: str,
+        token_address: typing.Optional[str] = OMIT,
         options: typing.Optional[SolanaDexTokenProfilePayloadOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[SolanaDexTokenProfile]:
@@ -312,7 +312,7 @@ class RawDexClient:
 
         Parameters
         ----------
-        token : str
+        token_address : typing.Optional[str]
             Token address to retrieve the profile for.
 
         options : typing.Optional[SolanaDexTokenProfilePayloadOptions]
@@ -329,7 +329,7 @@ class RawDexClient:
             "v1/solana/dex/profiles/tokens/get-profile",
             method="POST",
             json={
-                "token": token,
+                "token_address": token_address,
                 "options": convert_and_respect_annotation_metadata(
                     object_=options, annotation=SolanaDexTokenProfilePayloadOptions, direction="write"
                 ),
@@ -560,8 +560,8 @@ class RawDexClient:
     def get_trades(
         self,
         *,
-        wallet: typing.Optional[str] = OMIT,
-        token: typing.Optional[str] = OMIT,
+        wallet_address: typing.Optional[str] = OMIT,
+        token_address: typing.Optional[str] = OMIT,
         limit: typing.Optional[int] = OMIT,
         cursor: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -571,10 +571,10 @@ class RawDexClient:
 
         Parameters
         ----------
-        wallet : typing.Optional[str]
+        wallet_address : typing.Optional[str]
             Wallet address to filter trades by. When combined with `token`, returns only trades for that wallet on that token.
 
-        token : typing.Optional[str]
+        token_address : typing.Optional[str]
             Token address to filter trades by. When combined with `wallet`, returns only trades for that wallet on that token.
 
         limit : typing.Optional[int]
@@ -595,8 +595,8 @@ class RawDexClient:
             "v1/solana/dex/trades/get-trades",
             method="POST",
             json={
-                "wallet": wallet,
-                "token": token,
+                "wallet_address": wallet_address,
+                "token_address": token_address,
                 "limit": limit,
                 "cursor": cursor,
             },
@@ -683,8 +683,8 @@ class RawDexClient:
     def get_swaps(
         self,
         *,
-        wallet: typing.Optional[str] = OMIT,
-        token: typing.Optional[str] = OMIT,
+        wallet_address: typing.Optional[str] = OMIT,
+        token_address: typing.Optional[str] = OMIT,
         limit: typing.Optional[int] = OMIT,
         cursor: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -694,10 +694,10 @@ class RawDexClient:
 
         Parameters
         ----------
-        wallet : typing.Optional[str]
+        wallet_address : typing.Optional[str]
             Wallet address to filter swaps by. When combined with `token`, returns only swaps for that wallet on that token.
 
-        token : typing.Optional[str]
+        token_address : typing.Optional[str]
             Token address to filter swaps by. When combined with `wallet`, returns only swaps for that wallet on that token.
 
         limit : typing.Optional[int]
@@ -718,8 +718,8 @@ class RawDexClient:
             "v1/solana/dex/swaps/get-swaps",
             method="POST",
             json={
-                "wallet": wallet,
-                "token": token,
+                "wallet_address": wallet_address,
+                "token_address": token_address,
                 "limit": limit,
                 "cursor": cursor,
             },
@@ -1016,8 +1016,8 @@ class RawDexClient:
     def get_price_candles(
         self,
         *,
-        token: str,
         interval: int,
+        token_address: typing.Optional[str] = OMIT,
         from_: typing.Optional[dt.datetime] = OMIT,
         to: typing.Optional[dt.datetime] = OMIT,
         count: typing.Optional[int] = OMIT,
@@ -1028,11 +1028,11 @@ class RawDexClient:
 
         Parameters
         ----------
-        token : str
-            Token address to retrieve price candles for.
-
         interval : int
             Sampling interval between data points, in seconds.
+
+        token_address : typing.Optional[str]
+            Token address to retrieve price candles for.
 
         from_ : typing.Optional[dt.datetime]
             Start of the candle range, as a date-time RFC3339 string.
@@ -1058,7 +1058,7 @@ class RawDexClient:
             "v1/solana/dex/prices/get-price-candles",
             method="POST",
             json={
-                "token": token,
+                "token_address": token_address,
                 "from": from_,
                 "to": to,
                 "count": count,
@@ -1275,7 +1275,7 @@ class AsyncRawDexClient:
     async def get_wallet_profile(
         self,
         *,
-        wallet: str,
+        wallet_address: typing.Optional[str] = OMIT,
         options: typing.Optional[SolanaDexWalletProfilePayloadOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[SolanaDexWalletProfile]:
@@ -1284,7 +1284,7 @@ class AsyncRawDexClient:
 
         Parameters
         ----------
-        wallet : str
+        wallet_address : typing.Optional[str]
             Wallet address to retrieve the profile for.
 
         options : typing.Optional[SolanaDexWalletProfilePayloadOptions]
@@ -1301,7 +1301,7 @@ class AsyncRawDexClient:
             "v1/solana/dex/profiles/wallets/get-profile",
             method="POST",
             json={
-                "wallet": wallet,
+                "wallet_address": wallet_address,
                 "options": convert_and_respect_annotation_metadata(
                     object_=options, annotation=SolanaDexWalletProfilePayloadOptions, direction="write"
                 ),
@@ -1532,7 +1532,7 @@ class AsyncRawDexClient:
     async def get_token_profile(
         self,
         *,
-        token: str,
+        token_address: typing.Optional[str] = OMIT,
         options: typing.Optional[SolanaDexTokenProfilePayloadOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[SolanaDexTokenProfile]:
@@ -1541,7 +1541,7 @@ class AsyncRawDexClient:
 
         Parameters
         ----------
-        token : str
+        token_address : typing.Optional[str]
             Token address to retrieve the profile for.
 
         options : typing.Optional[SolanaDexTokenProfilePayloadOptions]
@@ -1558,7 +1558,7 @@ class AsyncRawDexClient:
             "v1/solana/dex/profiles/tokens/get-profile",
             method="POST",
             json={
-                "token": token,
+                "token_address": token_address,
                 "options": convert_and_respect_annotation_metadata(
                     object_=options, annotation=SolanaDexTokenProfilePayloadOptions, direction="write"
                 ),
@@ -1789,8 +1789,8 @@ class AsyncRawDexClient:
     async def get_trades(
         self,
         *,
-        wallet: typing.Optional[str] = OMIT,
-        token: typing.Optional[str] = OMIT,
+        wallet_address: typing.Optional[str] = OMIT,
+        token_address: typing.Optional[str] = OMIT,
         limit: typing.Optional[int] = OMIT,
         cursor: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1800,10 +1800,10 @@ class AsyncRawDexClient:
 
         Parameters
         ----------
-        wallet : typing.Optional[str]
+        wallet_address : typing.Optional[str]
             Wallet address to filter trades by. When combined with `token`, returns only trades for that wallet on that token.
 
-        token : typing.Optional[str]
+        token_address : typing.Optional[str]
             Token address to filter trades by. When combined with `wallet`, returns only trades for that wallet on that token.
 
         limit : typing.Optional[int]
@@ -1824,8 +1824,8 @@ class AsyncRawDexClient:
             "v1/solana/dex/trades/get-trades",
             method="POST",
             json={
-                "wallet": wallet,
-                "token": token,
+                "wallet_address": wallet_address,
+                "token_address": token_address,
                 "limit": limit,
                 "cursor": cursor,
             },
@@ -1912,8 +1912,8 @@ class AsyncRawDexClient:
     async def get_swaps(
         self,
         *,
-        wallet: typing.Optional[str] = OMIT,
-        token: typing.Optional[str] = OMIT,
+        wallet_address: typing.Optional[str] = OMIT,
+        token_address: typing.Optional[str] = OMIT,
         limit: typing.Optional[int] = OMIT,
         cursor: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1923,10 +1923,10 @@ class AsyncRawDexClient:
 
         Parameters
         ----------
-        wallet : typing.Optional[str]
+        wallet_address : typing.Optional[str]
             Wallet address to filter swaps by. When combined with `token`, returns only swaps for that wallet on that token.
 
-        token : typing.Optional[str]
+        token_address : typing.Optional[str]
             Token address to filter swaps by. When combined with `wallet`, returns only swaps for that wallet on that token.
 
         limit : typing.Optional[int]
@@ -1947,8 +1947,8 @@ class AsyncRawDexClient:
             "v1/solana/dex/swaps/get-swaps",
             method="POST",
             json={
-                "wallet": wallet,
-                "token": token,
+                "wallet_address": wallet_address,
+                "token_address": token_address,
                 "limit": limit,
                 "cursor": cursor,
             },
@@ -2245,8 +2245,8 @@ class AsyncRawDexClient:
     async def get_price_candles(
         self,
         *,
-        token: str,
         interval: int,
+        token_address: typing.Optional[str] = OMIT,
         from_: typing.Optional[dt.datetime] = OMIT,
         to: typing.Optional[dt.datetime] = OMIT,
         count: typing.Optional[int] = OMIT,
@@ -2257,11 +2257,11 @@ class AsyncRawDexClient:
 
         Parameters
         ----------
-        token : str
-            Token address to retrieve price candles for.
-
         interval : int
             Sampling interval between data points, in seconds.
+
+        token_address : typing.Optional[str]
+            Token address to retrieve price candles for.
 
         from_ : typing.Optional[dt.datetime]
             Start of the candle range, as a date-time RFC3339 string.
@@ -2287,7 +2287,7 @@ class AsyncRawDexClient:
             "v1/solana/dex/prices/get-price-candles",
             method="POST",
             json={
-                "token": token,
+                "token_address": token_address,
                 "from": from_,
                 "to": to,
                 "count": count,

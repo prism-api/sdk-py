@@ -5,22 +5,22 @@ import typing
 
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .solana_dex_wallet_profile_identity import SolanaDexWalletProfileIdentity
-from .solana_dex_wallet_profile_label_enum import SolanaDexWalletProfileLabelEnum
-from .solana_dex_wallet_profile_metadata import SolanaDexWalletProfileMetadata
-from .solana_dex_wallet_profile_metrics import SolanaDexWalletProfileMetrics
+from .solana_dex_token_profile_label_enum import SolanaDexTokenProfileLabelEnum
+from .solana_dex_token_profile_market import SolanaDexTokenProfileMarket
+from .solana_dex_token_profile_metadata import SolanaDexTokenProfileMetadata
+from .solana_dex_token_profile_metrics import SolanaDexTokenProfileMetrics
 
 
-class SolanaDexWalletProfile(UniversalBaseModel):
+class SolanaDexTokenProfileMessage(UniversalBaseModel):
     updated_at: typing.Optional[dt.datetime] = None
     synced_at: typing.Optional[dt.datetime] = None
-    wallet_address: typing.Optional[str] = None
-    labels: typing.Optional[typing.List[SolanaDexWalletProfileLabelEnum]] = None
+    token_address: typing.Optional[str] = None
+    labels: typing.Optional[typing.List[SolanaDexTokenProfileLabelEnum]] = None
     matched_labels: typing.Optional[typing.Dict[str, typing.List[str]]] = None
     dynamic_labels: typing.Optional[typing.List[str]] = None
-    metadata: typing.Optional[SolanaDexWalletProfileMetadata] = None
-    identity: typing.Optional[SolanaDexWalletProfileIdentity] = None
-    metrics: typing.Optional[typing.Dict[str, SolanaDexWalletProfileMetrics]] = None
+    metadata: typing.Optional[SolanaDexTokenProfileMetadata] = None
+    market: typing.Optional[SolanaDexTokenProfileMarket] = None
+    metrics: typing.Optional[typing.Dict[str, SolanaDexTokenProfileMetrics]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

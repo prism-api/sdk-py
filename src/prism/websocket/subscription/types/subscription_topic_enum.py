@@ -4,14 +4,15 @@ import typing
 
 SubscriptionTopicEnum = typing.Union[
     typing.Literal[
-        "solana.dex.price",
-        "solana.dex.swap.wallet",
-        "solana.dex.swap.token",
-        "solana.dex.trade.wallet",
-        "solana.dex.trade.token",
-        "solana.dex.profile.wallet",
-        "solana.dex.profile.token",
-        "solana.dex.profile.position",
+        "solana.dex.prices",
+        "solana.dex.swaps",
+        "solana.dex.trades",
+        "solana.dex.pools",
+        "solana.dex.profiles.wallet",
+        "solana.dex.profiles.token",
+        "solana.dex.profiles.position",
+        "solana.assets.transfers",
+        "solana.assets.balance-changes",
     ],
     typing.Any,
 ]

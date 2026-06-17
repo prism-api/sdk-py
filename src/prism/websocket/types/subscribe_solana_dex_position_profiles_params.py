@@ -7,7 +7,10 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class SubscribeSolanaDexPositionProfilesParams(UniversalBaseModel):
-    positions: typing.Optional[typing.List[str]] = None
+    position_addresses: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    """
+    The position addresses to filter by. Leave empty to subscribe to all positions.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

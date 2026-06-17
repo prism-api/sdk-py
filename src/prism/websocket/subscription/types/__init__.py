@@ -6,20 +6,27 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .solana_dex_price import SolanaDexPrice
-    from .solana_dex_swap import SolanaDexSwap
+    from .solana_assets_balance_change_message import SolanaAssetsBalanceChangeMessage
+    from .solana_assets_balance_change_type_enum import SolanaAssetsBalanceChangeTypeEnum
+    from .solana_assets_transfer_message import SolanaAssetsTransferMessage
+    from .solana_assets_transfer_type_enum import SolanaAssetsTransferTypeEnum
+    from .solana_dex_pool_message import SolanaDexPoolMessage
+    from .solana_dex_pool_message_event_type_enum import SolanaDexPoolMessageEventTypeEnum
+    from .solana_dex_pool_message_vault import SolanaDexPoolMessageVault
+    from .solana_dex_price_message import SolanaDexPriceMessage
+    from .solana_dex_swap_message import SolanaDexSwapMessage
     from .solana_dex_swap_type_enum import SolanaDexSwapTypeEnum
-    from .solana_dex_token_profile import SolanaDexTokenProfile
     from .solana_dex_token_profile_label_enum import SolanaDexTokenProfileLabelEnum
     from .solana_dex_token_profile_market import SolanaDexTokenProfileMarket
+    from .solana_dex_token_profile_message import SolanaDexTokenProfileMessage
     from .solana_dex_token_profile_metadata import SolanaDexTokenProfileMetadata
     from .solana_dex_token_profile_metrics import SolanaDexTokenProfileMetrics
-    from .solana_dex_trade import SolanaDexTrade
     from .solana_dex_trade_direction_enum import SolanaDexTradeDirectionEnum
+    from .solana_dex_trade_message import SolanaDexTradeMessage
     from .solana_dex_trade_position_state_enum import SolanaDexTradePositionStateEnum
-    from .solana_dex_wallet_profile import SolanaDexWalletProfile
     from .solana_dex_wallet_profile_identity import SolanaDexWalletProfileIdentity
     from .solana_dex_wallet_profile_label_enum import SolanaDexWalletProfileLabelEnum
+    from .solana_dex_wallet_profile_message import SolanaDexWalletProfileMessage
     from .solana_dex_wallet_profile_metadata import SolanaDexWalletProfileMetadata
     from .solana_dex_wallet_profile_metrics import SolanaDexWalletProfileMetrics
     from .subscribe_payload import SubscribePayload
@@ -29,22 +36,28 @@ if typing.TYPE_CHECKING:
     from .subscription_method_enum import SubscriptionMethodEnum
     from .subscription_topic_enum import SubscriptionTopicEnum
     from .unsubscribe_payload import UnsubscribePayload
-    from .unsubscribe_payload_params import UnsubscribePayloadParams
 _dynamic_imports: typing.Dict[str, str] = {
-    "SolanaDexPrice": ".solana_dex_price",
-    "SolanaDexSwap": ".solana_dex_swap",
+    "SolanaAssetsBalanceChangeMessage": ".solana_assets_balance_change_message",
+    "SolanaAssetsBalanceChangeTypeEnum": ".solana_assets_balance_change_type_enum",
+    "SolanaAssetsTransferMessage": ".solana_assets_transfer_message",
+    "SolanaAssetsTransferTypeEnum": ".solana_assets_transfer_type_enum",
+    "SolanaDexPoolMessage": ".solana_dex_pool_message",
+    "SolanaDexPoolMessageEventTypeEnum": ".solana_dex_pool_message_event_type_enum",
+    "SolanaDexPoolMessageVault": ".solana_dex_pool_message_vault",
+    "SolanaDexPriceMessage": ".solana_dex_price_message",
+    "SolanaDexSwapMessage": ".solana_dex_swap_message",
     "SolanaDexSwapTypeEnum": ".solana_dex_swap_type_enum",
-    "SolanaDexTokenProfile": ".solana_dex_token_profile",
     "SolanaDexTokenProfileLabelEnum": ".solana_dex_token_profile_label_enum",
     "SolanaDexTokenProfileMarket": ".solana_dex_token_profile_market",
+    "SolanaDexTokenProfileMessage": ".solana_dex_token_profile_message",
     "SolanaDexTokenProfileMetadata": ".solana_dex_token_profile_metadata",
     "SolanaDexTokenProfileMetrics": ".solana_dex_token_profile_metrics",
-    "SolanaDexTrade": ".solana_dex_trade",
     "SolanaDexTradeDirectionEnum": ".solana_dex_trade_direction_enum",
+    "SolanaDexTradeMessage": ".solana_dex_trade_message",
     "SolanaDexTradePositionStateEnum": ".solana_dex_trade_position_state_enum",
-    "SolanaDexWalletProfile": ".solana_dex_wallet_profile",
     "SolanaDexWalletProfileIdentity": ".solana_dex_wallet_profile_identity",
     "SolanaDexWalletProfileLabelEnum": ".solana_dex_wallet_profile_label_enum",
+    "SolanaDexWalletProfileMessage": ".solana_dex_wallet_profile_message",
     "SolanaDexWalletProfileMetadata": ".solana_dex_wallet_profile_metadata",
     "SolanaDexWalletProfileMetrics": ".solana_dex_wallet_profile_metrics",
     "SubscribePayload": ".subscribe_payload",
@@ -54,7 +67,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SubscriptionMethodEnum": ".subscription_method_enum",
     "SubscriptionTopicEnum": ".subscription_topic_enum",
     "UnsubscribePayload": ".unsubscribe_payload",
-    "UnsubscribePayloadParams": ".unsubscribe_payload_params",
 }
 
 
@@ -80,20 +92,27 @@ def __dir__():
 
 
 __all__ = [
-    "SolanaDexPrice",
-    "SolanaDexSwap",
+    "SolanaAssetsBalanceChangeMessage",
+    "SolanaAssetsBalanceChangeTypeEnum",
+    "SolanaAssetsTransferMessage",
+    "SolanaAssetsTransferTypeEnum",
+    "SolanaDexPoolMessage",
+    "SolanaDexPoolMessageEventTypeEnum",
+    "SolanaDexPoolMessageVault",
+    "SolanaDexPriceMessage",
+    "SolanaDexSwapMessage",
     "SolanaDexSwapTypeEnum",
-    "SolanaDexTokenProfile",
     "SolanaDexTokenProfileLabelEnum",
     "SolanaDexTokenProfileMarket",
+    "SolanaDexTokenProfileMessage",
     "SolanaDexTokenProfileMetadata",
     "SolanaDexTokenProfileMetrics",
-    "SolanaDexTrade",
     "SolanaDexTradeDirectionEnum",
+    "SolanaDexTradeMessage",
     "SolanaDexTradePositionStateEnum",
-    "SolanaDexWalletProfile",
     "SolanaDexWalletProfileIdentity",
     "SolanaDexWalletProfileLabelEnum",
+    "SolanaDexWalletProfileMessage",
     "SolanaDexWalletProfileMetadata",
     "SolanaDexWalletProfileMetrics",
     "SubscribePayload",
@@ -103,5 +122,4 @@ __all__ = [
     "SubscriptionMethodEnum",
     "SubscriptionTopicEnum",
     "UnsubscribePayload",
-    "UnsubscribePayloadParams",
 ]

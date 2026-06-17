@@ -8,7 +8,7 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .solana_dex_swap_type_enum import SolanaDexSwapTypeEnum
 
 
-class SolanaDexSwap(UniversalBaseModel):
+class SolanaDexSwapMessage(UniversalBaseModel):
     id: typing.Optional[int] = None
     swap_type: typing.Optional[SolanaDexSwapTypeEnum] = None
     protocol: typing.Optional[str] = pydantic.Field(default=None)

@@ -6,8 +6,16 @@ import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class UnsubscribeSolanaDexTradesParams(UniversalBaseModel):
-    tokens: typing.Optional[typing.List[str]] = None
+class SubscribeSolanaAssetsBalanceChangesParams(UniversalBaseModel):
+    owner_addresses: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    """
+    The owner addresses to filter by. Leave empty to subscribe to all owners.
+    """
+
+    token_addresses: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    """
+    The token addresses to filter by. Leave empty to subscribe to all tokens.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

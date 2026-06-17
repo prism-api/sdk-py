@@ -2,6 +2,9 @@
 
 import typing
 
+from ...types.subscribe_solana_assets_balance_changes_params import SubscribeSolanaAssetsBalanceChangesParams
+from ...types.subscribe_solana_assets_transfers_params import SubscribeSolanaAssetsTransfersParams
+from ...types.subscribe_solana_dex_pools_params import SubscribeSolanaDexPoolsParams
 from ...types.subscribe_solana_dex_position_profiles_params import SubscribeSolanaDexPositionProfilesParams
 from ...types.subscribe_solana_dex_prices_params import SubscribeSolanaDexPricesParams
 from ...types.subscribe_solana_dex_swaps_params import SubscribeSolanaDexSwapsParams
@@ -13,7 +16,10 @@ SubscribePayloadParams = typing.Union[
     SubscribeSolanaDexPricesParams,
     SubscribeSolanaDexSwapsParams,
     SubscribeSolanaDexTradesParams,
+    SubscribeSolanaDexPoolsParams,
     SubscribeSolanaDexWalletProfilesParams,
     SubscribeSolanaDexTokenProfilesParams,
     SubscribeSolanaDexPositionProfilesParams,
+    SubscribeSolanaAssetsTransfersParams,
+    SubscribeSolanaAssetsBalanceChangesParams,
 ]

@@ -10,7 +10,7 @@ from .solana_dex_trade_direction_enum import SolanaDexTradeDirectionEnum
 from .solana_dex_trade_position_state_enum import SolanaDexTradePositionStateEnum
 
 
-class SolanaDexTrade(UniversalBaseModel):
+class SolanaDexTradeMessage(UniversalBaseModel):
     id: typing.Optional[int] = None
     protocol: typing.Optional[str] = pydantic.Field(default=None)
     """

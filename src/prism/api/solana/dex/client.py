@@ -46,7 +46,7 @@ class DexClient:
     def get_wallet_profile(
         self,
         *,
-        wallet: str,
+        wallet_address: typing.Optional[str] = OMIT,
         options: typing.Optional[SolanaDexWalletProfilePayloadOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SolanaDexWalletProfile:
@@ -55,7 +55,7 @@ class DexClient:
 
         Parameters
         ----------
-        wallet : str
+        wallet_address : typing.Optional[str]
             Wallet address to retrieve the profile for.
 
         options : typing.Optional[SolanaDexWalletProfilePayloadOptions]
@@ -77,7 +77,6 @@ class DexClient:
             api_key="YOUR_API_KEY",
         )
         client.api.solana.dex.get_wallet_profile(
-            wallet="suqh5sHtr8HyJ7q8scBimULPkPpA557prMG47xCHQfK",
             options=SolanaDexWalletProfilePayloadOptions(
                 include_metadata=True,
                 include_labels=True,
@@ -85,7 +84,9 @@ class DexClient:
             ),
         )
         """
-        _response = self._raw_client.get_wallet_profile(wallet=wallet, options=options, request_options=request_options)
+        _response = self._raw_client.get_wallet_profile(
+            wallet_address=wallet_address, options=options, request_options=request_options
+        )
         return _response.data
 
     def search_wallet_profiles(
@@ -175,7 +176,7 @@ class DexClient:
     def get_token_profile(
         self,
         *,
-        token: str,
+        token_address: typing.Optional[str] = OMIT,
         options: typing.Optional[SolanaDexTokenProfilePayloadOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SolanaDexTokenProfile:
@@ -184,7 +185,7 @@ class DexClient:
 
         Parameters
         ----------
-        token : str
+        token_address : typing.Optional[str]
             Token address to retrieve the profile for.
 
         options : typing.Optional[SolanaDexTokenProfilePayloadOptions]
@@ -206,7 +207,6 @@ class DexClient:
             api_key="YOUR_API_KEY",
         )
         client.api.solana.dex.get_token_profile(
-            token="Z4d9YXR4pSkdKcu9UBcwxHp7i32buzdDtAR1b1Gbonk",
             options=SolanaDexTokenProfilePayloadOptions(
                 include_metadata=True,
                 include_market=True,
@@ -215,7 +215,9 @@ class DexClient:
             ),
         )
         """
-        _response = self._raw_client.get_token_profile(token=token, options=options, request_options=request_options)
+        _response = self._raw_client.get_token_profile(
+            token_address=token_address, options=options, request_options=request_options
+        )
         return _response.data
 
     def search_token_profiles(
@@ -306,8 +308,8 @@ class DexClient:
     def get_trades(
         self,
         *,
-        wallet: typing.Optional[str] = OMIT,
-        token: typing.Optional[str] = OMIT,
+        wallet_address: typing.Optional[str] = OMIT,
+        token_address: typing.Optional[str] = OMIT,
         limit: typing.Optional[int] = OMIT,
         cursor: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -317,10 +319,10 @@ class DexClient:
 
         Parameters
         ----------
-        wallet : typing.Optional[str]
+        wallet_address : typing.Optional[str]
             Wallet address to filter trades by. When combined with `token`, returns only trades for that wallet on that token.
 
-        token : typing.Optional[str]
+        token_address : typing.Optional[str]
             Token address to filter trades by. When combined with `wallet`, returns only trades for that wallet on that token.
 
         limit : typing.Optional[int]
@@ -346,19 +348,22 @@ class DexClient:
         )
         client.api.solana.dex.get_trades(
             limit=20,
-            wallet="suqh5sHtr8HyJ7q8scBimULPkPpA557prMG47xCHQfK",
         )
         """
         _response = self._raw_client.get_trades(
-            wallet=wallet, token=token, limit=limit, cursor=cursor, request_options=request_options
+            wallet_address=wallet_address,
+            token_address=token_address,
+            limit=limit,
+            cursor=cursor,
+            request_options=request_options,
         )
         return _response.data
 
     def get_swaps(
         self,
         *,
-        wallet: typing.Optional[str] = OMIT,
-        token: typing.Optional[str] = OMIT,
+        wallet_address: typing.Optional[str] = OMIT,
+        token_address: typing.Optional[str] = OMIT,
         limit: typing.Optional[int] = OMIT,
         cursor: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -368,10 +373,10 @@ class DexClient:
 
         Parameters
         ----------
-        wallet : typing.Optional[str]
+        wallet_address : typing.Optional[str]
             Wallet address to filter swaps by. When combined with `token`, returns only swaps for that wallet on that token.
 
-        token : typing.Optional[str]
+        token_address : typing.Optional[str]
             Token address to filter swaps by. When combined with `wallet`, returns only swaps for that wallet on that token.
 
         limit : typing.Optional[int]
@@ -397,11 +402,14 @@ class DexClient:
         )
         client.api.solana.dex.get_swaps(
             limit=20,
-            wallet="suqh5sHtr8HyJ7q8scBimULPkPpA557prMG47xCHQfK",
         )
         """
         _response = self._raw_client.get_swaps(
-            wallet=wallet, token=token, limit=limit, cursor=cursor, request_options=request_options
+            wallet_address=wallet_address,
+            token_address=token_address,
+            limit=limit,
+            cursor=cursor,
+            request_options=request_options,
         )
         return _response.data
 
@@ -474,8 +482,8 @@ class DexClient:
     def get_price_candles(
         self,
         *,
-        token: str,
         interval: int,
+        token_address: typing.Optional[str] = OMIT,
         from_: typing.Optional[dt.datetime] = OMIT,
         to: typing.Optional[dt.datetime] = OMIT,
         count: typing.Optional[int] = OMIT,
@@ -486,11 +494,11 @@ class DexClient:
 
         Parameters
         ----------
-        token : str
-            Token address to retrieve price candles for.
-
         interval : int
             Sampling interval between data points, in seconds.
+
+        token_address : typing.Optional[str]
+            Token address to retrieve price candles for.
 
         from_ : typing.Optional[dt.datetime]
             Start of the candle range, as a date-time RFC3339 string.
@@ -522,7 +530,6 @@ class DexClient:
             api_key="YOUR_API_KEY",
         )
         client.api.solana.dex.get_price_candles(
-            token="Z4d9YXR4pSkdKcu9UBcwxHp7i32buzdDtAR1b1Gbonk",
             from_=datetime.datetime.fromisoformat(
                 "2026-04-27 00:00:00+00:00",
             ),
@@ -533,7 +540,12 @@ class DexClient:
         )
         """
         _response = self._raw_client.get_price_candles(
-            token=token, interval=interval, from_=from_, to=to, count=count, request_options=request_options
+            interval=interval,
+            token_address=token_address,
+            from_=from_,
+            to=to,
+            count=count,
+            request_options=request_options,
         )
         return _response.data
 
@@ -615,7 +627,7 @@ class AsyncDexClient:
     async def get_wallet_profile(
         self,
         *,
-        wallet: str,
+        wallet_address: typing.Optional[str] = OMIT,
         options: typing.Optional[SolanaDexWalletProfilePayloadOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SolanaDexWalletProfile:
@@ -624,7 +636,7 @@ class AsyncDexClient:
 
         Parameters
         ----------
-        wallet : str
+        wallet_address : typing.Optional[str]
             Wallet address to retrieve the profile for.
 
         options : typing.Optional[SolanaDexWalletProfilePayloadOptions]
@@ -651,7 +663,6 @@ class AsyncDexClient:
 
         async def main() -> None:
             await client.api.solana.dex.get_wallet_profile(
-                wallet="suqh5sHtr8HyJ7q8scBimULPkPpA557prMG47xCHQfK",
                 options=SolanaDexWalletProfilePayloadOptions(
                     include_metadata=True,
                     include_labels=True,
@@ -663,7 +674,7 @@ class AsyncDexClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.get_wallet_profile(
-            wallet=wallet, options=options, request_options=request_options
+            wallet_address=wallet_address, options=options, request_options=request_options
         )
         return _response.data
 
@@ -762,7 +773,7 @@ class AsyncDexClient:
     async def get_token_profile(
         self,
         *,
-        token: str,
+        token_address: typing.Optional[str] = OMIT,
         options: typing.Optional[SolanaDexTokenProfilePayloadOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SolanaDexTokenProfile:
@@ -771,7 +782,7 @@ class AsyncDexClient:
 
         Parameters
         ----------
-        token : str
+        token_address : typing.Optional[str]
             Token address to retrieve the profile for.
 
         options : typing.Optional[SolanaDexTokenProfilePayloadOptions]
@@ -798,7 +809,6 @@ class AsyncDexClient:
 
         async def main() -> None:
             await client.api.solana.dex.get_token_profile(
-                token="Z4d9YXR4pSkdKcu9UBcwxHp7i32buzdDtAR1b1Gbonk",
                 options=SolanaDexTokenProfilePayloadOptions(
                     include_metadata=True,
                     include_market=True,
@@ -811,7 +821,7 @@ class AsyncDexClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.get_token_profile(
-            token=token, options=options, request_options=request_options
+            token_address=token_address, options=options, request_options=request_options
         )
         return _response.data
 
@@ -911,8 +921,8 @@ class AsyncDexClient:
     async def get_trades(
         self,
         *,
-        wallet: typing.Optional[str] = OMIT,
-        token: typing.Optional[str] = OMIT,
+        wallet_address: typing.Optional[str] = OMIT,
+        token_address: typing.Optional[str] = OMIT,
         limit: typing.Optional[int] = OMIT,
         cursor: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -922,10 +932,10 @@ class AsyncDexClient:
 
         Parameters
         ----------
-        wallet : typing.Optional[str]
+        wallet_address : typing.Optional[str]
             Wallet address to filter trades by. When combined with `token`, returns only trades for that wallet on that token.
 
-        token : typing.Optional[str]
+        token_address : typing.Optional[str]
             Token address to filter trades by. When combined with `wallet`, returns only trades for that wallet on that token.
 
         limit : typing.Optional[int]
@@ -956,22 +966,25 @@ class AsyncDexClient:
         async def main() -> None:
             await client.api.solana.dex.get_trades(
                 limit=20,
-                wallet="suqh5sHtr8HyJ7q8scBimULPkPpA557prMG47xCHQfK",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._raw_client.get_trades(
-            wallet=wallet, token=token, limit=limit, cursor=cursor, request_options=request_options
+            wallet_address=wallet_address,
+            token_address=token_address,
+            limit=limit,
+            cursor=cursor,
+            request_options=request_options,
         )
         return _response.data
 
     async def get_swaps(
         self,
         *,
-        wallet: typing.Optional[str] = OMIT,
-        token: typing.Optional[str] = OMIT,
+        wallet_address: typing.Optional[str] = OMIT,
+        token_address: typing.Optional[str] = OMIT,
         limit: typing.Optional[int] = OMIT,
         cursor: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -981,10 +994,10 @@ class AsyncDexClient:
 
         Parameters
         ----------
-        wallet : typing.Optional[str]
+        wallet_address : typing.Optional[str]
             Wallet address to filter swaps by. When combined with `token`, returns only swaps for that wallet on that token.
 
-        token : typing.Optional[str]
+        token_address : typing.Optional[str]
             Token address to filter swaps by. When combined with `wallet`, returns only swaps for that wallet on that token.
 
         limit : typing.Optional[int]
@@ -1015,14 +1028,17 @@ class AsyncDexClient:
         async def main() -> None:
             await client.api.solana.dex.get_swaps(
                 limit=20,
-                wallet="suqh5sHtr8HyJ7q8scBimULPkPpA557prMG47xCHQfK",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._raw_client.get_swaps(
-            wallet=wallet, token=token, limit=limit, cursor=cursor, request_options=request_options
+            wallet_address=wallet_address,
+            token_address=token_address,
+            limit=limit,
+            cursor=cursor,
+            request_options=request_options,
         )
         return _response.data
 
@@ -1111,8 +1127,8 @@ class AsyncDexClient:
     async def get_price_candles(
         self,
         *,
-        token: str,
         interval: int,
+        token_address: typing.Optional[str] = OMIT,
         from_: typing.Optional[dt.datetime] = OMIT,
         to: typing.Optional[dt.datetime] = OMIT,
         count: typing.Optional[int] = OMIT,
@@ -1123,11 +1139,11 @@ class AsyncDexClient:
 
         Parameters
         ----------
-        token : str
-            Token address to retrieve price candles for.
-
         interval : int
             Sampling interval between data points, in seconds.
+
+        token_address : typing.Optional[str]
+            Token address to retrieve price candles for.
 
         from_ : typing.Optional[dt.datetime]
             Start of the candle range, as a date-time RFC3339 string.
@@ -1163,7 +1179,6 @@ class AsyncDexClient:
 
         async def main() -> None:
             await client.api.solana.dex.get_price_candles(
-                token="Z4d9YXR4pSkdKcu9UBcwxHp7i32buzdDtAR1b1Gbonk",
                 from_=datetime.datetime.fromisoformat(
                     "2026-04-27 00:00:00+00:00",
                 ),
@@ -1177,7 +1192,12 @@ class AsyncDexClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.get_price_candles(
-            token=token, interval=interval, from_=from_, to=to, count=count, request_options=request_options
+            interval=interval,
+            token_address=token_address,
+            from_=from_,
+            to=to,
+            count=count,
+            request_options=request_options,
         )
         return _response.data
 

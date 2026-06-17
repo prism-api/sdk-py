@@ -37,7 +37,6 @@ client = Client(
 )
 
 client.api.solana.dex.get_wallet_profile(
-    wallet="suqh5sHtr8HyJ7q8scBimULPkPpA557prMG47xCHQfK",
     options=SolanaDexWalletProfilePayloadOptions(
         include_metadata=True,
         include_labels=True,
@@ -61,7 +60,7 @@ client.api.solana.dex.get_wallet_profile(
 <dl>
 <dd>
 
-**wallet:** `str` — Wallet address to retrieve the profile for.
+**wallet_address:** `typing.Optional[str]` — Wallet address to retrieve the profile for.
     
 </dd>
 </dl>
@@ -128,10 +127,10 @@ client = Client(
 client.api.solana.dex.search_wallet_profiles(
     limit=10,
     query=SolanaDexWalletProfileSearchPayloadQuery(
-        text="cupsey",
         fields=[
             "identity.name"
         ],
+        text="cupsey",
     ),
     sort=SolanaDexProfileSearchPayloadSort(
         field="metrics.7d.cumulative_pnl",
@@ -268,7 +267,6 @@ client = Client(
 )
 
 client.api.solana.dex.get_token_profile(
-    token="Z4d9YXR4pSkdKcu9UBcwxHp7i32buzdDtAR1b1Gbonk",
     options=SolanaDexTokenProfilePayloadOptions(
         include_metadata=True,
         include_market=True,
@@ -293,7 +291,7 @@ client.api.solana.dex.get_token_profile(
 <dl>
 <dd>
 
-**token:** `str` — Token address to retrieve the profile for.
+**token_address:** `typing.Optional[str]` — Token address to retrieve the profile for.
     
 </dd>
 </dl>
@@ -360,10 +358,10 @@ client = Client(
 client.api.solana.dex.search_token_profiles(
     limit=10,
     query=SolanaDexTokenProfileSearchPayloadQueryField(
-        text="bonk",
         fields=[
             "metadata.name"
         ],
+        text="bonk",
     ),
     sort=SolanaDexProfileSearchPayloadSort(
         field="market.liquidity",
@@ -501,7 +499,6 @@ client = Client(
 
 client.api.solana.dex.get_trades(
     limit=20,
-    wallet="suqh5sHtr8HyJ7q8scBimULPkPpA557prMG47xCHQfK",
 )
 
 ```
@@ -534,7 +531,7 @@ client.api.solana.dex.get_trades(
 <dl>
 <dd>
 
-**wallet:** `typing.Optional[str]` — Wallet address to filter trades by. When combined with `token`, returns only trades for that wallet on that token.
+**wallet_address:** `typing.Optional[str]` — Wallet address to filter trades by. When combined with `token`, returns only trades for that wallet on that token.
     
 </dd>
 </dl>
@@ -542,7 +539,7 @@ client.api.solana.dex.get_trades(
 <dl>
 <dd>
 
-**token:** `typing.Optional[str]` — Token address to filter trades by. When combined with `wallet`, returns only trades for that wallet on that token.
+**token_address:** `typing.Optional[str]` — Token address to filter trades by. When combined with `wallet`, returns only trades for that wallet on that token.
     
 </dd>
 </dl>
@@ -599,7 +596,6 @@ client = Client(
 
 client.api.solana.dex.get_swaps(
     limit=20,
-    wallet="suqh5sHtr8HyJ7q8scBimULPkPpA557prMG47xCHQfK",
 )
 
 ```
@@ -632,7 +628,7 @@ client.api.solana.dex.get_swaps(
 <dl>
 <dd>
 
-**wallet:** `typing.Optional[str]` — Wallet address to filter swaps by. When combined with `token`, returns only swaps for that wallet on that token.
+**wallet_address:** `typing.Optional[str]` — Wallet address to filter swaps by. When combined with `token`, returns only swaps for that wallet on that token.
     
 </dd>
 </dl>
@@ -640,7 +636,7 @@ client.api.solana.dex.get_swaps(
 <dl>
 <dd>
 
-**token:** `typing.Optional[str]` — Token address to filter swaps by. When combined with `wallet`, returns only swaps for that wallet on that token.
+**token_address:** `typing.Optional[str]` — Token address to filter swaps by. When combined with `wallet`, returns only swaps for that wallet on that token.
     
 </dd>
 </dl>
@@ -847,7 +843,6 @@ client = Client(
 )
 
 client.api.solana.dex.get_price_candles(
-    token="Z4d9YXR4pSkdKcu9UBcwxHp7i32buzdDtAR1b1Gbonk",
     from_=datetime.datetime.fromisoformat("2026-04-27T00:00:00+00:00"),
     to=datetime.datetime.fromisoformat("2026-04-27T01:00:00+00:00"),
     interval=60,
@@ -867,7 +862,7 @@ client.api.solana.dex.get_price_candles(
 <dl>
 <dd>
 
-**token:** `str` — Token address to retrieve price candles for.
+**interval:** `int` — Sampling interval between data points, in seconds.
     
 </dd>
 </dl>
@@ -875,7 +870,7 @@ client.api.solana.dex.get_price_candles(
 <dl>
 <dd>
 
-**interval:** `int` — Sampling interval between data points, in seconds.
+**token_address:** `typing.Optional[str]` — Token address to retrieve price candles for.
     
 </dd>
 </dl>

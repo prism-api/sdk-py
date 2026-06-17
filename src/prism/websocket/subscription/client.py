@@ -60,7 +60,7 @@ class SubscriptionClient:
             jsonable_encoder(
                 remove_none_from_dict(
                     {
-                        "X-Api-Key": x_api_key,
+                        "x-api-key": x_api_key,
                         **(
                             request_options.get("additional_query_parameters", {}) or {}
                             if request_options is not None
@@ -132,7 +132,7 @@ class AsyncSubscriptionClient:
             jsonable_encoder(
                 remove_none_from_dict(
                     {
-                        "X-Api-Key": x_api_key,
+                        "x-api-key": x_api_key,
                         **(
                             request_options.get("additional_query_parameters", {}) or {}
                             if request_options is not None
