@@ -46,7 +46,7 @@ class RawDexClient:
     def get_wallet_profile(
         self,
         *,
-        wallet_address: typing.Optional[str] = OMIT,
+        wallet: str,
         options: typing.Optional[SolanaDexWalletProfilePayloadOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[SolanaDexWalletProfile]:
@@ -55,7 +55,7 @@ class RawDexClient:
 
         Parameters
         ----------
-        wallet_address : typing.Optional[str]
+        wallet : str
             Wallet address to retrieve the profile for.
 
         options : typing.Optional[SolanaDexWalletProfilePayloadOptions]
@@ -72,7 +72,7 @@ class RawDexClient:
             "v1/solana/dex/profiles/wallets/get-profile",
             method="POST",
             json={
-                "wallet_address": wallet_address,
+                "wallet": wallet,
                 "options": convert_and_respect_annotation_metadata(
                     object_=options, annotation=SolanaDexWalletProfilePayloadOptions, direction="write"
                 ),
@@ -303,7 +303,7 @@ class RawDexClient:
     def get_token_profile(
         self,
         *,
-        token_address: typing.Optional[str] = OMIT,
+        token: str,
         options: typing.Optional[SolanaDexTokenProfilePayloadOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[SolanaDexTokenProfile]:
@@ -312,7 +312,7 @@ class RawDexClient:
 
         Parameters
         ----------
-        token_address : typing.Optional[str]
+        token : str
             Token address to retrieve the profile for.
 
         options : typing.Optional[SolanaDexTokenProfilePayloadOptions]
@@ -329,7 +329,7 @@ class RawDexClient:
             "v1/solana/dex/profiles/tokens/get-profile",
             method="POST",
             json={
-                "token_address": token_address,
+                "token": token,
                 "options": convert_and_respect_annotation_metadata(
                     object_=options, annotation=SolanaDexTokenProfilePayloadOptions, direction="write"
                 ),
@@ -560,22 +560,22 @@ class RawDexClient:
     def get_trades(
         self,
         *,
-        wallet_address: typing.Optional[str] = OMIT,
-        token_address: typing.Optional[str] = OMIT,
+        wallet: typing.Optional[str] = OMIT,
+        token: typing.Optional[str] = OMIT,
         limit: typing.Optional[int] = OMIT,
         cursor: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[GetTradesDexResponse]:
         """
-        Returns trades for a wallet, token or both.
+        Returns trades for a combination of wallet, token and/or pool.
 
         Parameters
         ----------
-        wallet_address : typing.Optional[str]
-            Wallet address to filter trades by. When combined with `token`, returns only trades for that wallet on that token.
+        wallet : typing.Optional[str]
+            Wallet address to filter trades by.
 
-        token_address : typing.Optional[str]
-            Token address to filter trades by. When combined with `wallet`, returns only trades for that wallet on that token.
+        token : typing.Optional[str]
+            Token address to filter trades by.
 
         limit : typing.Optional[int]
             Maximum number of results to return in a single page.
@@ -595,8 +595,8 @@ class RawDexClient:
             "v1/solana/dex/trades/get-trades",
             method="POST",
             json={
-                "wallet_address": wallet_address,
-                "token_address": token_address,
+                "wallet": wallet,
+                "token": token,
                 "limit": limit,
                 "cursor": cursor,
             },
@@ -683,22 +683,26 @@ class RawDexClient:
     def get_swaps(
         self,
         *,
-        wallet_address: typing.Optional[str] = OMIT,
-        token_address: typing.Optional[str] = OMIT,
+        wallet: typing.Optional[str] = OMIT,
+        token: typing.Optional[str] = OMIT,
+        pool: typing.Optional[str] = OMIT,
         limit: typing.Optional[int] = OMIT,
         cursor: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[GetSwapsDexResponse]:
         """
-        Returns swaps for a wallet, token or both.
+        Returns swaps for a combination of wallet, token and/or pool.
 
         Parameters
         ----------
-        wallet_address : typing.Optional[str]
-            Wallet address to filter swaps by. When combined with `token`, returns only swaps for that wallet on that token.
+        wallet : typing.Optional[str]
+            Wallet address to filter swaps by.
 
-        token_address : typing.Optional[str]
-            Token address to filter swaps by. When combined with `wallet`, returns only swaps for that wallet on that token.
+        token : typing.Optional[str]
+            Token address to filter swaps by.
+
+        pool : typing.Optional[str]
+            Pool address to filter swaps by.
 
         limit : typing.Optional[int]
             Maximum number of results to return in a single page.
@@ -718,8 +722,9 @@ class RawDexClient:
             "v1/solana/dex/swaps/get-swaps",
             method="POST",
             json={
-                "wallet_address": wallet_address,
-                "token_address": token_address,
+                "wallet": wallet,
+                "token": token,
+                "pool": pool,
                 "limit": limit,
                 "cursor": cursor,
             },
@@ -804,15 +809,22 @@ class RawDexClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get_price(
-        self, *, tokens: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        tokens: typing.Optional[typing.Sequence[str]] = OMIT,
+        pools: typing.Optional[typing.Sequence[str]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.List[SolanaDexPrice]]:
         """
-        Returns prices for one or more tokens.
+        Returns prices for one or more tokens or pools.
 
         Parameters
         ----------
-        tokens : typing.Sequence[str]
-            Token addresses to retrieve the latest prices for. Accepts between 1 and 1000 tokens per request.
+        tokens : typing.Optional[typing.Sequence[str]]
+            Token addresses to retrieve the latest prices for.
+
+        pools : typing.Optional[typing.Sequence[str]]
+            Pool addresses to retrieve the latest prices for.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -827,6 +839,7 @@ class RawDexClient:
             method="POST",
             json={
                 "tokens": tokens,
+                "pools": pools,
             },
             headers={
                 "content-type": "application/json",
@@ -909,15 +922,22 @@ class RawDexClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get_price_stats(
-        self, *, tokens: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        tokens: typing.Optional[typing.Sequence[str]] = OMIT,
+        pools: typing.Optional[typing.Sequence[str]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.List[SolanaDexPriceStats]]:
         """
-        Returns price stats for one or more tokens.
+        Returns price stats for one or more tokens or pools.
 
         Parameters
         ----------
-        tokens : typing.Sequence[str]
-            Token addresses to retrieve price statistics for. Accepts between 1 and 1000 tokens per request.
+        tokens : typing.Optional[typing.Sequence[str]]
+            Token addresses to retrieve price statistics for.
+
+        pools : typing.Optional[typing.Sequence[str]]
+            Pool addresses to retrieve price statistics for.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -932,6 +952,7 @@ class RawDexClient:
             method="POST",
             json={
                 "tokens": tokens,
+                "pools": pools,
             },
             headers={
                 "content-type": "application/json",
@@ -1017,34 +1038,38 @@ class RawDexClient:
         self,
         *,
         interval: int,
-        token_address: typing.Optional[str] = OMIT,
+        token: typing.Optional[str] = OMIT,
+        pool: typing.Optional[str] = OMIT,
         from_: typing.Optional[dt.datetime] = OMIT,
         to: typing.Optional[dt.datetime] = OMIT,
         count: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.List[SolanaDexPriceCandle]]:
         """
-        Returns price candles for a specific token.
+        Returns price candles for a specific token and/or pool.
 
         Parameters
         ----------
         interval : int
             Sampling interval between data points, in seconds.
 
-        token_address : typing.Optional[str]
-            Token address to retrieve price candles for.
+        token : typing.Optional[str]
+            Token address to filter by.
+
+        pool : typing.Optional[str]
+            Pool address to filter by.
 
         from_ : typing.Optional[dt.datetime]
             Start of the candle range, as a date-time RFC3339 string.
-            Must be combined with `to` to define a bounded range.
+            Can be combined with `to` to define a bounded range.
 
         to : typing.Optional[dt.datetime]
-            End of the candle range, as a date-time RFC3339 string. Defaults to the current time.
-            Must be combined with either `from` (to define a bounded range) or `count` (to return the N most recent candles ending at `to`).
+            End of the candle range, as a date-time RFC3339 string.
+            Defaults to the current time.
 
         count : typing.Optional[int]
-            Number of candles to return, ending at `to`.
-            Must be combined with `to`.
+            Number of candles to return.
+            Must be combined with `from` or `to`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1058,7 +1083,8 @@ class RawDexClient:
             "v1/solana/dex/prices/get-price-candles",
             method="POST",
             json={
-                "token_address": token_address,
+                "token": token,
+                "pool": pool,
                 "from": from_,
                 "to": to,
                 "count": count,
@@ -1147,28 +1173,33 @@ class RawDexClient:
     def get_price_history(
         self,
         *,
-        tokens: typing.Sequence[str],
         from_: dt.datetime,
         interval: int,
+        tokens: typing.Optional[typing.Sequence[str]] = OMIT,
+        pools: typing.Optional[typing.Sequence[str]] = OMIT,
         to: typing.Optional[dt.datetime] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.List[SolanaDexPriceHistory]]:
         """
-        Returns price history for one or more tokens.
+        Returns price history for one or more tokens or pools.
 
         Parameters
         ----------
-        tokens : typing.Sequence[str]
-            Token addresses to retrieve price history for. Accepts between 1 and 100 tokens per request.
-
         from_ : dt.datetime
             Start of the history range, as a date-time RFC3339 string.
 
         interval : int
             Sampling interval between data points, in seconds.
 
+        tokens : typing.Optional[typing.Sequence[str]]
+            Token addresses to retrieve price history for.
+
+        pools : typing.Optional[typing.Sequence[str]]
+            Pool addresses to retrieve price history for.
+
         to : typing.Optional[dt.datetime]
-            End of the history range, as a date-time RFC3339 string. Defaults to the current time.
+            End of the history range, as a date-time RFC3339 string.
+            Defaults to the current time.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1183,6 +1214,7 @@ class RawDexClient:
             method="POST",
             json={
                 "tokens": tokens,
+                "pools": pools,
                 "from": from_,
                 "to": to,
                 "interval": interval,
@@ -1275,7 +1307,7 @@ class AsyncRawDexClient:
     async def get_wallet_profile(
         self,
         *,
-        wallet_address: typing.Optional[str] = OMIT,
+        wallet: str,
         options: typing.Optional[SolanaDexWalletProfilePayloadOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[SolanaDexWalletProfile]:
@@ -1284,7 +1316,7 @@ class AsyncRawDexClient:
 
         Parameters
         ----------
-        wallet_address : typing.Optional[str]
+        wallet : str
             Wallet address to retrieve the profile for.
 
         options : typing.Optional[SolanaDexWalletProfilePayloadOptions]
@@ -1301,7 +1333,7 @@ class AsyncRawDexClient:
             "v1/solana/dex/profiles/wallets/get-profile",
             method="POST",
             json={
-                "wallet_address": wallet_address,
+                "wallet": wallet,
                 "options": convert_and_respect_annotation_metadata(
                     object_=options, annotation=SolanaDexWalletProfilePayloadOptions, direction="write"
                 ),
@@ -1532,7 +1564,7 @@ class AsyncRawDexClient:
     async def get_token_profile(
         self,
         *,
-        token_address: typing.Optional[str] = OMIT,
+        token: str,
         options: typing.Optional[SolanaDexTokenProfilePayloadOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[SolanaDexTokenProfile]:
@@ -1541,7 +1573,7 @@ class AsyncRawDexClient:
 
         Parameters
         ----------
-        token_address : typing.Optional[str]
+        token : str
             Token address to retrieve the profile for.
 
         options : typing.Optional[SolanaDexTokenProfilePayloadOptions]
@@ -1558,7 +1590,7 @@ class AsyncRawDexClient:
             "v1/solana/dex/profiles/tokens/get-profile",
             method="POST",
             json={
-                "token_address": token_address,
+                "token": token,
                 "options": convert_and_respect_annotation_metadata(
                     object_=options, annotation=SolanaDexTokenProfilePayloadOptions, direction="write"
                 ),
@@ -1789,22 +1821,22 @@ class AsyncRawDexClient:
     async def get_trades(
         self,
         *,
-        wallet_address: typing.Optional[str] = OMIT,
-        token_address: typing.Optional[str] = OMIT,
+        wallet: typing.Optional[str] = OMIT,
+        token: typing.Optional[str] = OMIT,
         limit: typing.Optional[int] = OMIT,
         cursor: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[GetTradesDexResponse]:
         """
-        Returns trades for a wallet, token or both.
+        Returns trades for a combination of wallet, token and/or pool.
 
         Parameters
         ----------
-        wallet_address : typing.Optional[str]
-            Wallet address to filter trades by. When combined with `token`, returns only trades for that wallet on that token.
+        wallet : typing.Optional[str]
+            Wallet address to filter trades by.
 
-        token_address : typing.Optional[str]
-            Token address to filter trades by. When combined with `wallet`, returns only trades for that wallet on that token.
+        token : typing.Optional[str]
+            Token address to filter trades by.
 
         limit : typing.Optional[int]
             Maximum number of results to return in a single page.
@@ -1824,8 +1856,8 @@ class AsyncRawDexClient:
             "v1/solana/dex/trades/get-trades",
             method="POST",
             json={
-                "wallet_address": wallet_address,
-                "token_address": token_address,
+                "wallet": wallet,
+                "token": token,
                 "limit": limit,
                 "cursor": cursor,
             },
@@ -1912,22 +1944,26 @@ class AsyncRawDexClient:
     async def get_swaps(
         self,
         *,
-        wallet_address: typing.Optional[str] = OMIT,
-        token_address: typing.Optional[str] = OMIT,
+        wallet: typing.Optional[str] = OMIT,
+        token: typing.Optional[str] = OMIT,
+        pool: typing.Optional[str] = OMIT,
         limit: typing.Optional[int] = OMIT,
         cursor: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[GetSwapsDexResponse]:
         """
-        Returns swaps for a wallet, token or both.
+        Returns swaps for a combination of wallet, token and/or pool.
 
         Parameters
         ----------
-        wallet_address : typing.Optional[str]
-            Wallet address to filter swaps by. When combined with `token`, returns only swaps for that wallet on that token.
+        wallet : typing.Optional[str]
+            Wallet address to filter swaps by.
 
-        token_address : typing.Optional[str]
-            Token address to filter swaps by. When combined with `wallet`, returns only swaps for that wallet on that token.
+        token : typing.Optional[str]
+            Token address to filter swaps by.
+
+        pool : typing.Optional[str]
+            Pool address to filter swaps by.
 
         limit : typing.Optional[int]
             Maximum number of results to return in a single page.
@@ -1947,8 +1983,9 @@ class AsyncRawDexClient:
             "v1/solana/dex/swaps/get-swaps",
             method="POST",
             json={
-                "wallet_address": wallet_address,
-                "token_address": token_address,
+                "wallet": wallet,
+                "token": token,
+                "pool": pool,
                 "limit": limit,
                 "cursor": cursor,
             },
@@ -2033,15 +2070,22 @@ class AsyncRawDexClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get_price(
-        self, *, tokens: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        tokens: typing.Optional[typing.Sequence[str]] = OMIT,
+        pools: typing.Optional[typing.Sequence[str]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.List[SolanaDexPrice]]:
         """
-        Returns prices for one or more tokens.
+        Returns prices for one or more tokens or pools.
 
         Parameters
         ----------
-        tokens : typing.Sequence[str]
-            Token addresses to retrieve the latest prices for. Accepts between 1 and 1000 tokens per request.
+        tokens : typing.Optional[typing.Sequence[str]]
+            Token addresses to retrieve the latest prices for.
+
+        pools : typing.Optional[typing.Sequence[str]]
+            Pool addresses to retrieve the latest prices for.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2056,6 +2100,7 @@ class AsyncRawDexClient:
             method="POST",
             json={
                 "tokens": tokens,
+                "pools": pools,
             },
             headers={
                 "content-type": "application/json",
@@ -2138,15 +2183,22 @@ class AsyncRawDexClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get_price_stats(
-        self, *, tokens: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        tokens: typing.Optional[typing.Sequence[str]] = OMIT,
+        pools: typing.Optional[typing.Sequence[str]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.List[SolanaDexPriceStats]]:
         """
-        Returns price stats for one or more tokens.
+        Returns price stats for one or more tokens or pools.
 
         Parameters
         ----------
-        tokens : typing.Sequence[str]
-            Token addresses to retrieve price statistics for. Accepts between 1 and 1000 tokens per request.
+        tokens : typing.Optional[typing.Sequence[str]]
+            Token addresses to retrieve price statistics for.
+
+        pools : typing.Optional[typing.Sequence[str]]
+            Pool addresses to retrieve price statistics for.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2161,6 +2213,7 @@ class AsyncRawDexClient:
             method="POST",
             json={
                 "tokens": tokens,
+                "pools": pools,
             },
             headers={
                 "content-type": "application/json",
@@ -2246,34 +2299,38 @@ class AsyncRawDexClient:
         self,
         *,
         interval: int,
-        token_address: typing.Optional[str] = OMIT,
+        token: typing.Optional[str] = OMIT,
+        pool: typing.Optional[str] = OMIT,
         from_: typing.Optional[dt.datetime] = OMIT,
         to: typing.Optional[dt.datetime] = OMIT,
         count: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.List[SolanaDexPriceCandle]]:
         """
-        Returns price candles for a specific token.
+        Returns price candles for a specific token and/or pool.
 
         Parameters
         ----------
         interval : int
             Sampling interval between data points, in seconds.
 
-        token_address : typing.Optional[str]
-            Token address to retrieve price candles for.
+        token : typing.Optional[str]
+            Token address to filter by.
+
+        pool : typing.Optional[str]
+            Pool address to filter by.
 
         from_ : typing.Optional[dt.datetime]
             Start of the candle range, as a date-time RFC3339 string.
-            Must be combined with `to` to define a bounded range.
+            Can be combined with `to` to define a bounded range.
 
         to : typing.Optional[dt.datetime]
-            End of the candle range, as a date-time RFC3339 string. Defaults to the current time.
-            Must be combined with either `from` (to define a bounded range) or `count` (to return the N most recent candles ending at `to`).
+            End of the candle range, as a date-time RFC3339 string.
+            Defaults to the current time.
 
         count : typing.Optional[int]
-            Number of candles to return, ending at `to`.
-            Must be combined with `to`.
+            Number of candles to return.
+            Must be combined with `from` or `to`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2287,7 +2344,8 @@ class AsyncRawDexClient:
             "v1/solana/dex/prices/get-price-candles",
             method="POST",
             json={
-                "token_address": token_address,
+                "token": token,
+                "pool": pool,
                 "from": from_,
                 "to": to,
                 "count": count,
@@ -2376,28 +2434,33 @@ class AsyncRawDexClient:
     async def get_price_history(
         self,
         *,
-        tokens: typing.Sequence[str],
         from_: dt.datetime,
         interval: int,
+        tokens: typing.Optional[typing.Sequence[str]] = OMIT,
+        pools: typing.Optional[typing.Sequence[str]] = OMIT,
         to: typing.Optional[dt.datetime] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.List[SolanaDexPriceHistory]]:
         """
-        Returns price history for one or more tokens.
+        Returns price history for one or more tokens or pools.
 
         Parameters
         ----------
-        tokens : typing.Sequence[str]
-            Token addresses to retrieve price history for. Accepts between 1 and 100 tokens per request.
-
         from_ : dt.datetime
             Start of the history range, as a date-time RFC3339 string.
 
         interval : int
             Sampling interval between data points, in seconds.
 
+        tokens : typing.Optional[typing.Sequence[str]]
+            Token addresses to retrieve price history for.
+
+        pools : typing.Optional[typing.Sequence[str]]
+            Pool addresses to retrieve price history for.
+
         to : typing.Optional[dt.datetime]
-            End of the history range, as a date-time RFC3339 string. Defaults to the current time.
+            End of the history range, as a date-time RFC3339 string.
+            Defaults to the current time.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2412,6 +2475,7 @@ class AsyncRawDexClient:
             method="POST",
             json={
                 "tokens": tokens,
+                "pools": pools,
                 "from": from_,
                 "to": to,
                 "interval": interval,

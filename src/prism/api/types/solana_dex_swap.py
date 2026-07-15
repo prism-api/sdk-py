@@ -14,6 +14,7 @@ class SolanaDexSwap(UniversalBaseModel):
     swap_type: typing.Optional[SolanaDexSwapTypeEnum] = None
     protocol: typing.Optional[SolanaDexProtocolField] = None
     wallet_address: typing.Optional[str] = None
+    pool_address: typing.Optional[str] = None
     token_address_in: typing.Optional[str] = None
     token_address_out: typing.Optional[str] = None
     token_amount_in: typing.Optional[float] = None

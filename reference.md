@@ -37,6 +37,7 @@ client = Client(
 )
 
 client.api.solana.dex.get_wallet_profile(
+    wallet="suqh5sHtr8HyJ7q8scBimULPkPpA557prMG47xCHQfK",
     options=SolanaDexWalletProfilePayloadOptions(
         include_metadata=True,
         include_labels=True,
@@ -60,7 +61,7 @@ client.api.solana.dex.get_wallet_profile(
 <dl>
 <dd>
 
-**wallet_address:** `typing.Optional[str]` — Wallet address to retrieve the profile for.
+**wallet:** `str` — Wallet address to retrieve the profile for.
     
 </dd>
 </dl>
@@ -267,6 +268,7 @@ client = Client(
 )
 
 client.api.solana.dex.get_token_profile(
+    token="Z4d9YXR4pSkdKcu9UBcwxHp7i32buzdDtAR1b1Gbonk",
     options=SolanaDexTokenProfilePayloadOptions(
         include_metadata=True,
         include_market=True,
@@ -291,7 +293,7 @@ client.api.solana.dex.get_token_profile(
 <dl>
 <dd>
 
-**token_address:** `typing.Optional[str]` — Token address to retrieve the profile for.
+**token:** `str` — Token address to retrieve the profile for.
     
 </dd>
 </dl>
@@ -474,7 +476,7 @@ client.api.solana.dex.search_token_profiles(
 <dl>
 <dd>
 
-Returns trades for a wallet, token or both.
+Returns trades for a combination of wallet, token and/or pool.
 </dd>
 </dl>
 </dd>
@@ -499,6 +501,7 @@ client = Client(
 
 client.api.solana.dex.get_trades(
     limit=20,
+    wallet="suqh5sHtr8HyJ7q8scBimULPkPpA557prMG47xCHQfK",
 )
 
 ```
@@ -531,7 +534,7 @@ client.api.solana.dex.get_trades(
 <dl>
 <dd>
 
-**wallet_address:** `typing.Optional[str]` — Wallet address to filter trades by. When combined with `token`, returns only trades for that wallet on that token.
+**wallet:** `typing.Optional[str]` — Wallet address to filter trades by.
     
 </dd>
 </dl>
@@ -539,7 +542,7 @@ client.api.solana.dex.get_trades(
 <dl>
 <dd>
 
-**token_address:** `typing.Optional[str]` — Token address to filter trades by. When combined with `wallet`, returns only trades for that wallet on that token.
+**token:** `typing.Optional[str]` — Token address to filter trades by.
     
 </dd>
 </dl>
@@ -571,7 +574,7 @@ client.api.solana.dex.get_trades(
 <dl>
 <dd>
 
-Returns swaps for a wallet, token or both.
+Returns swaps for a combination of wallet, token and/or pool.
 </dd>
 </dl>
 </dd>
@@ -596,6 +599,7 @@ client = Client(
 
 client.api.solana.dex.get_swaps(
     limit=20,
+    wallet="suqh5sHtr8HyJ7q8scBimULPkPpA557prMG47xCHQfK",
 )
 
 ```
@@ -628,7 +632,7 @@ client.api.solana.dex.get_swaps(
 <dl>
 <dd>
 
-**wallet_address:** `typing.Optional[str]` — Wallet address to filter swaps by. When combined with `token`, returns only swaps for that wallet on that token.
+**wallet:** `typing.Optional[str]` — Wallet address to filter swaps by.
     
 </dd>
 </dl>
@@ -636,7 +640,15 @@ client.api.solana.dex.get_swaps(
 <dl>
 <dd>
 
-**token_address:** `typing.Optional[str]` — Token address to filter swaps by. When combined with `wallet`, returns only swaps for that wallet on that token.
+**token:** `typing.Optional[str]` — Token address to filter swaps by.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pool:** `typing.Optional[str]` — Pool address to filter swaps by.
     
 </dd>
 </dl>
@@ -668,7 +680,7 @@ client.api.solana.dex.get_swaps(
 <dl>
 <dd>
 
-Returns prices for one or more tokens.
+Returns prices for one or more tokens or pools.
 </dd>
 </dl>
 </dd>
@@ -711,7 +723,15 @@ client.api.solana.dex.get_price(
 <dl>
 <dd>
 
-**tokens:** `typing.List[str]` — Token addresses to retrieve the latest prices for. Accepts between 1 and 1000 tokens per request.
+**tokens:** `typing.Optional[typing.List[str]]` — Token addresses to retrieve the latest prices for.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pools:** `typing.Optional[typing.List[str]]` — Pool addresses to retrieve the latest prices for.
     
 </dd>
 </dl>
@@ -743,7 +763,7 @@ client.api.solana.dex.get_price(
 <dl>
 <dd>
 
-Returns price stats for one or more tokens.
+Returns price stats for one or more tokens or pools.
 </dd>
 </dl>
 </dd>
@@ -786,7 +806,15 @@ client.api.solana.dex.get_price_stats(
 <dl>
 <dd>
 
-**tokens:** `typing.List[str]` — Token addresses to retrieve price statistics for. Accepts between 1 and 1000 tokens per request.
+**tokens:** `typing.Optional[typing.List[str]]` — Token addresses to retrieve price statistics for.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pools:** `typing.Optional[typing.List[str]]` — Pool addresses to retrieve price statistics for.
     
 </dd>
 </dl>
@@ -818,7 +846,7 @@ client.api.solana.dex.get_price_stats(
 <dl>
 <dd>
 
-Returns price candles for a specific token.
+Returns price candles for a specific token and/or pool.
 </dd>
 </dl>
 </dd>
@@ -843,6 +871,7 @@ client = Client(
 )
 
 client.api.solana.dex.get_price_candles(
+    token="Z4d9YXR4pSkdKcu9UBcwxHp7i32buzdDtAR1b1Gbonk",
     from_=datetime.datetime.fromisoformat("2026-04-27T00:00:00+00:00"),
     to=datetime.datetime.fromisoformat("2026-04-27T01:00:00+00:00"),
     interval=60,
@@ -870,7 +899,15 @@ client.api.solana.dex.get_price_candles(
 <dl>
 <dd>
 
-**token_address:** `typing.Optional[str]` — Token address to retrieve price candles for.
+**token:** `typing.Optional[str]` — Token address to filter by.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pool:** `typing.Optional[str]` — Pool address to filter by.
     
 </dd>
 </dl>
@@ -881,7 +918,7 @@ client.api.solana.dex.get_price_candles(
 **from:** `typing.Optional[datetime.datetime]` 
 
 Start of the candle range, as a date-time RFC3339 string.
-Must be combined with `to` to define a bounded range.
+Can be combined with `to` to define a bounded range.
     
 </dd>
 </dl>
@@ -891,8 +928,8 @@ Must be combined with `to` to define a bounded range.
 
 **to:** `typing.Optional[datetime.datetime]` 
 
-End of the candle range, as a date-time RFC3339 string. Defaults to the current time.
-Must be combined with either `from` (to define a bounded range) or `count` (to return the N most recent candles ending at `to`).
+End of the candle range, as a date-time RFC3339 string. 
+Defaults to the current time.
     
 </dd>
 </dl>
@@ -902,8 +939,8 @@ Must be combined with either `from` (to define a bounded range) or `count` (to r
 
 **count:** `typing.Optional[int]` 
 
-Number of candles to return, ending at `to`.
-Must be combined with `to`.
+Number of candles to return.
+Must be combined with `from` or `to`.
     
 </dd>
 </dl>
@@ -935,7 +972,7 @@ Must be combined with `to`.
 <dl>
 <dd>
 
-Returns price history for one or more tokens.
+Returns price history for one or more tokens or pools.
 </dd>
 </dl>
 </dd>
@@ -982,14 +1019,6 @@ client.api.solana.dex.get_price_history(
 <dl>
 <dd>
 
-**tokens:** `typing.List[str]` — Token addresses to retrieve price history for. Accepts between 1 and 100 tokens per request.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **from:** `datetime.datetime` — Start of the history range, as a date-time RFC3339 string.
     
 </dd>
@@ -1006,7 +1035,26 @@ client.api.solana.dex.get_price_history(
 <dl>
 <dd>
 
-**to:** `typing.Optional[datetime.datetime]` — End of the history range, as a date-time RFC3339 string. Defaults to the current time.
+**tokens:** `typing.Optional[typing.List[str]]` — Token addresses to retrieve price history for.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pools:** `typing.Optional[typing.List[str]]` — Pool addresses to retrieve price history for.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**to:** `typing.Optional[datetime.datetime]` 
+
+End of the history range, as a date-time RFC3339 string. 
+Defaults to the current time.
     
 </dd>
 </dl>

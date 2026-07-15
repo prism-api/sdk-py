@@ -17,6 +17,7 @@ class SolanaDexSwapMessage(UniversalBaseModel):
     """
 
     wallet_address: typing.Optional[str] = None
+    pool_address: typing.Optional[str] = None
     token_address_in: typing.Optional[str] = None
     token_address_out: typing.Optional[str] = None
     token_amount_in: typing.Optional[float] = None

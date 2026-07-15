@@ -49,6 +49,7 @@ client = Client(
 )
 
 client.api.solana.dex.get_wallet_profile(
+    wallet="suqh5sHtr8HyJ7q8scBimULPkPpA557prMG47xCHQfK",
     options=SolanaDexWalletProfilePayloadOptions(
         include_metadata=True,
         include_labels=True,
@@ -89,6 +90,7 @@ client = AsyncClient(
 
 async def main() -> None:
     await client.api.solana.dex.get_wallet_profile(
+        wallet="suqh5sHtr8HyJ7q8scBimULPkPpA557prMG47xCHQfK",
         options=SolanaDexWalletProfilePayloadOptions(
             include_metadata=True,
             include_labels=True,

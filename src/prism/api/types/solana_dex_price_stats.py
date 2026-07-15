@@ -11,6 +11,7 @@ from ...core.serialization import FieldMetadata
 
 class SolanaDexPriceStats(UniversalBaseModel):
     token_address: typing.Optional[str] = None
+    pool_address: typing.Optional[str] = None
     usd_price: typing.Optional[float] = None
     usd_price_change5m: typing_extensions.Annotated[
         typing.Optional[float], FieldMetadata(alias="usd_price_change_5m"), pydantic.Field(alias="usd_price_change_5m")

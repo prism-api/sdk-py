@@ -17,6 +17,11 @@ class SubscribeSolanaDexSwapsParams(UniversalBaseModel):
     The token addresses to filter by. Leave empty to subscribe to all tokens.
     """
 
+    pool_addresses: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    """
+    The pool addresses to filter by. Leave empty to subscribe to all pools.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

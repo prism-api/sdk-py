@@ -9,6 +9,7 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 class SolanaDexPrice(UniversalBaseModel):
     token_address: typing.Optional[str] = None
+    pool_address: typing.Optional[str] = None
     usd_price: typing.Optional[float] = None
     block_slot: typing.Optional[int] = None
     block_time: typing.Optional[dt.datetime] = None

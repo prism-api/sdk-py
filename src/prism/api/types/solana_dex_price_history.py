@@ -9,6 +9,7 @@ from .solana_dex_price_snapshot import SolanaDexPriceSnapshot
 
 class SolanaDexPriceHistory(UniversalBaseModel):
     token_address: typing.Optional[str] = None
+    pool_address: typing.Optional[str] = None
     prices: typing.Optional[typing.List[SolanaDexPriceSnapshot]] = None
 
     if IS_PYDANTIC_V2:
