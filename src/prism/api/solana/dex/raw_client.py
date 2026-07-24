@@ -16,6 +16,8 @@ from ...errors.forbidden_error import ForbiddenError
 from ...errors.internal_server_error import InternalServerError
 from ...errors.too_many_requests_error import TooManyRequestsError
 from ...errors.unauthorized_error import UnauthorizedError
+from ...types.solana_dex_position_profile import SolanaDexPositionProfile
+from ...types.solana_dex_position_profile_payload_options import SolanaDexPositionProfilePayloadOptions
 from ...types.solana_dex_price import SolanaDexPrice
 from ...types.solana_dex_price_candle import SolanaDexPriceCandle
 from ...types.solana_dex_price_history import SolanaDexPriceHistory
@@ -31,6 +33,7 @@ from ...types.solana_dex_wallet_profile_payload_options import SolanaDexWalletPr
 from ...types.solana_dex_wallet_profile_search_payload_query import SolanaDexWalletProfileSearchPayloadQuery
 from .types.get_swaps_dex_response import GetSwapsDexResponse
 from .types.get_trades_dex_response import GetTradesDexResponse
+from .types.search_position_profiles_dex_response import SearchPositionProfilesDexResponse
 from .types.search_token_profiles_dex_response import SearchTokenProfilesDexResponse
 from .types.search_wallet_profiles_dex_response import SearchWalletProfilesDexResponse
 from pydantic import ValidationError
@@ -489,6 +492,262 @@ class RawDexClient:
                     SearchTokenProfilesDexResponse,
                     parse_obj_as(
                         type_=SearchTokenProfilesDexResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def get_position_profile(
+        self,
+        *,
+        wallet: str,
+        token: str,
+        options: typing.Optional[SolanaDexPositionProfilePayloadOptions] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[SolanaDexPositionProfile]:
+        """
+        Returns a position profile for a specific wallet-token pair.
+
+        Parameters
+        ----------
+        wallet : str
+            Wallet address of the position to retrieve.
+
+        token : str
+            Token address of the position to retrieve.
+
+        options : typing.Optional[SolanaDexPositionProfilePayloadOptions]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[SolanaDexPositionProfile]
+            Position profile for the specified wallet-token pair.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v1/solana/dex/profiles/positions/get-profile",
+            method="POST",
+            json={
+                "wallet": wallet,
+                "token": token,
+                "options": convert_and_respect_annotation_metadata(
+                    object_=options, annotation=SolanaDexPositionProfilePayloadOptions, direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    SolanaDexPositionProfile,
+                    parse_obj_as(
+                        type_=SolanaDexPositionProfile,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def search_position_profiles(
+        self,
+        *,
+        filter: typing.Optional[SolanaDexProfileSearchPayloadFilter] = OMIT,
+        sort: typing.Optional[SolanaDexProfileSearchPayloadSort] = OMIT,
+        dynamic_labels: typing.Optional[SolanaDexProfileSearchPayloadDynamicLabels] = OMIT,
+        options: typing.Optional[SolanaDexPositionProfilePayloadOptions] = OMIT,
+        limit: typing.Optional[int] = OMIT,
+        cursor: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[SearchPositionProfilesDexResponse]:
+        """
+        Filter, query, and sort position profiles based on specified metrics and conditions.
+
+        Parameters
+        ----------
+        filter : typing.Optional[SolanaDexProfileSearchPayloadFilter]
+
+        sort : typing.Optional[SolanaDexProfileSearchPayloadSort]
+
+        dynamic_labels : typing.Optional[SolanaDexProfileSearchPayloadDynamicLabels]
+
+        options : typing.Optional[SolanaDexPositionProfilePayloadOptions]
+
+        limit : typing.Optional[int]
+            Maximum number of results to return in a single page.
+
+        cursor : typing.Optional[str]
+            Opaque cursor returned by a previous response. Pass it to fetch the next page of results.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[SearchPositionProfilesDexResponse]
+            List of position profiles found from the search.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v1/solana/dex/profiles/positions/search-profiles",
+            method="POST",
+            json={
+                "filter": convert_and_respect_annotation_metadata(
+                    object_=filter, annotation=SolanaDexProfileSearchPayloadFilter, direction="write"
+                ),
+                "sort": convert_and_respect_annotation_metadata(
+                    object_=sort, annotation=SolanaDexProfileSearchPayloadSort, direction="write"
+                ),
+                "dynamic_labels": convert_and_respect_annotation_metadata(
+                    object_=dynamic_labels, annotation=SolanaDexProfileSearchPayloadDynamicLabels, direction="write"
+                ),
+                "options": convert_and_respect_annotation_metadata(
+                    object_=options, annotation=SolanaDexPositionProfilePayloadOptions, direction="write"
+                ),
+                "limit": limit,
+                "cursor": cursor,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    SearchPositionProfilesDexResponse,
+                    parse_obj_as(
+                        type_=SearchPositionProfilesDexResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1750,6 +2009,262 @@ class AsyncRawDexClient:
                     SearchTokenProfilesDexResponse,
                     parse_obj_as(
                         type_=SearchTokenProfilesDexResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def get_position_profile(
+        self,
+        *,
+        wallet: str,
+        token: str,
+        options: typing.Optional[SolanaDexPositionProfilePayloadOptions] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[SolanaDexPositionProfile]:
+        """
+        Returns a position profile for a specific wallet-token pair.
+
+        Parameters
+        ----------
+        wallet : str
+            Wallet address of the position to retrieve.
+
+        token : str
+            Token address of the position to retrieve.
+
+        options : typing.Optional[SolanaDexPositionProfilePayloadOptions]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[SolanaDexPositionProfile]
+            Position profile for the specified wallet-token pair.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "v1/solana/dex/profiles/positions/get-profile",
+            method="POST",
+            json={
+                "wallet": wallet,
+                "token": token,
+                "options": convert_and_respect_annotation_metadata(
+                    object_=options, annotation=SolanaDexPositionProfilePayloadOptions, direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    SolanaDexPositionProfile,
+                    parse_obj_as(
+                        type_=SolanaDexPositionProfile,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def search_position_profiles(
+        self,
+        *,
+        filter: typing.Optional[SolanaDexProfileSearchPayloadFilter] = OMIT,
+        sort: typing.Optional[SolanaDexProfileSearchPayloadSort] = OMIT,
+        dynamic_labels: typing.Optional[SolanaDexProfileSearchPayloadDynamicLabels] = OMIT,
+        options: typing.Optional[SolanaDexPositionProfilePayloadOptions] = OMIT,
+        limit: typing.Optional[int] = OMIT,
+        cursor: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[SearchPositionProfilesDexResponse]:
+        """
+        Filter, query, and sort position profiles based on specified metrics and conditions.
+
+        Parameters
+        ----------
+        filter : typing.Optional[SolanaDexProfileSearchPayloadFilter]
+
+        sort : typing.Optional[SolanaDexProfileSearchPayloadSort]
+
+        dynamic_labels : typing.Optional[SolanaDexProfileSearchPayloadDynamicLabels]
+
+        options : typing.Optional[SolanaDexPositionProfilePayloadOptions]
+
+        limit : typing.Optional[int]
+            Maximum number of results to return in a single page.
+
+        cursor : typing.Optional[str]
+            Opaque cursor returned by a previous response. Pass it to fetch the next page of results.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[SearchPositionProfilesDexResponse]
+            List of position profiles found from the search.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "v1/solana/dex/profiles/positions/search-profiles",
+            method="POST",
+            json={
+                "filter": convert_and_respect_annotation_metadata(
+                    object_=filter, annotation=SolanaDexProfileSearchPayloadFilter, direction="write"
+                ),
+                "sort": convert_and_respect_annotation_metadata(
+                    object_=sort, annotation=SolanaDexProfileSearchPayloadSort, direction="write"
+                ),
+                "dynamic_labels": convert_and_respect_annotation_metadata(
+                    object_=dynamic_labels, annotation=SolanaDexProfileSearchPayloadDynamicLabels, direction="write"
+                ),
+                "options": convert_and_respect_annotation_metadata(
+                    object_=options, annotation=SolanaDexPositionProfilePayloadOptions, direction="write"
+                ),
+                "limit": limit,
+                "cursor": cursor,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    SearchPositionProfilesDexResponse,
+                    parse_obj_as(
+                        type_=SearchPositionProfilesDexResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

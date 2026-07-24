@@ -11,6 +11,12 @@ if typing.TYPE_CHECKING:
     from .internal_server_error_body import InternalServerErrorBody
     from .paginated_response import PaginatedResponse
     from .payload_pagination import PayloadPagination
+    from .solana_dex_position_profile import SolanaDexPositionProfile
+    from .solana_dex_position_profile_labels import SolanaDexPositionProfileLabels
+    from .solana_dex_position_profile_metadata import SolanaDexPositionProfileMetadata
+    from .solana_dex_position_profile_metrics import SolanaDexPositionProfileMetrics
+    from .solana_dex_position_profile_payload_options import SolanaDexPositionProfilePayloadOptions
+    from .solana_dex_position_profile_time_window_enum import SolanaDexPositionProfileTimeWindowEnum
     from .solana_dex_price import SolanaDexPrice
     from .solana_dex_price_candle import SolanaDexPriceCandle
     from .solana_dex_price_history import SolanaDexPriceHistory
@@ -69,6 +75,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "InternalServerErrorBody": ".internal_server_error_body",
     "PaginatedResponse": ".paginated_response",
     "PayloadPagination": ".payload_pagination",
+    "SolanaDexPositionProfile": ".solana_dex_position_profile",
+    "SolanaDexPositionProfileLabels": ".solana_dex_position_profile_labels",
+    "SolanaDexPositionProfileMetadata": ".solana_dex_position_profile_metadata",
+    "SolanaDexPositionProfileMetrics": ".solana_dex_position_profile_metrics",
+    "SolanaDexPositionProfilePayloadOptions": ".solana_dex_position_profile_payload_options",
+    "SolanaDexPositionProfileTimeWindowEnum": ".solana_dex_position_profile_time_window_enum",
     "SolanaDexPrice": ".solana_dex_price",
     "SolanaDexPriceCandle": ".solana_dex_price_candle",
     "SolanaDexPriceHistory": ".solana_dex_price_history",
@@ -143,6 +155,12 @@ __all__ = [
     "InternalServerErrorBody",
     "PaginatedResponse",
     "PayloadPagination",
+    "SolanaDexPositionProfile",
+    "SolanaDexPositionProfileLabels",
+    "SolanaDexPositionProfileMetadata",
+    "SolanaDexPositionProfileMetrics",
+    "SolanaDexPositionProfilePayloadOptions",
+    "SolanaDexPositionProfileTimeWindowEnum",
     "SolanaDexPrice",
     "SolanaDexPriceCandle",
     "SolanaDexPriceHistory",

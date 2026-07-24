@@ -13,6 +13,9 @@ if typing.TYPE_CHECKING:
     from .solana_dex_pool_message import SolanaDexPoolMessage
     from .solana_dex_pool_message_event_type_enum import SolanaDexPoolMessageEventTypeEnum
     from .solana_dex_pool_message_vault import SolanaDexPoolMessageVault
+    from .solana_dex_position_profile_message import SolanaDexPositionProfileMessage
+    from .solana_dex_position_profile_metadata import SolanaDexPositionProfileMetadata
+    from .solana_dex_position_profile_metrics import SolanaDexPositionProfileMetrics
     from .solana_dex_price_message import SolanaDexPriceMessage
     from .solana_dex_swap_message import SolanaDexSwapMessage
     from .solana_dex_swap_type_enum import SolanaDexSwapTypeEnum
@@ -44,6 +47,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SolanaDexPoolMessage": ".solana_dex_pool_message",
     "SolanaDexPoolMessageEventTypeEnum": ".solana_dex_pool_message_event_type_enum",
     "SolanaDexPoolMessageVault": ".solana_dex_pool_message_vault",
+    "SolanaDexPositionProfileMessage": ".solana_dex_position_profile_message",
+    "SolanaDexPositionProfileMetadata": ".solana_dex_position_profile_metadata",
+    "SolanaDexPositionProfileMetrics": ".solana_dex_position_profile_metrics",
     "SolanaDexPriceMessage": ".solana_dex_price_message",
     "SolanaDexSwapMessage": ".solana_dex_swap_message",
     "SolanaDexSwapTypeEnum": ".solana_dex_swap_type_enum",
@@ -99,6 +105,9 @@ __all__ = [
     "SolanaDexPoolMessage",
     "SolanaDexPoolMessageEventTypeEnum",
     "SolanaDexPoolMessageVault",
+    "SolanaDexPositionProfileMessage",
+    "SolanaDexPositionProfileMetadata",
+    "SolanaDexPositionProfileMetrics",
     "SolanaDexPriceMessage",
     "SolanaDexSwapMessage",
     "SolanaDexSwapTypeEnum",

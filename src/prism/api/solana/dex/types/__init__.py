@@ -8,11 +8,13 @@ from importlib import import_module
 if typing.TYPE_CHECKING:
     from .get_swaps_dex_response import GetSwapsDexResponse
     from .get_trades_dex_response import GetTradesDexResponse
+    from .search_position_profiles_dex_response import SearchPositionProfilesDexResponse
     from .search_token_profiles_dex_response import SearchTokenProfilesDexResponse
     from .search_wallet_profiles_dex_response import SearchWalletProfilesDexResponse
 _dynamic_imports: typing.Dict[str, str] = {
     "GetSwapsDexResponse": ".get_swaps_dex_response",
     "GetTradesDexResponse": ".get_trades_dex_response",
+    "SearchPositionProfilesDexResponse": ".search_position_profiles_dex_response",
     "SearchTokenProfilesDexResponse": ".search_token_profiles_dex_response",
     "SearchWalletProfilesDexResponse": ".search_wallet_profiles_dex_response",
 }
@@ -42,6 +44,7 @@ def __dir__():
 __all__ = [
     "GetSwapsDexResponse",
     "GetTradesDexResponse",
+    "SearchPositionProfilesDexResponse",
     "SearchTokenProfilesDexResponse",
     "SearchWalletProfilesDexResponse",
 ]

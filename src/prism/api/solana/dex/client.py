@@ -5,6 +5,8 @@ import typing
 
 from ....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ....core.request_options import RequestOptions
+from ...types.solana_dex_position_profile import SolanaDexPositionProfile
+from ...types.solana_dex_position_profile_payload_options import SolanaDexPositionProfilePayloadOptions
 from ...types.solana_dex_price import SolanaDexPrice
 from ...types.solana_dex_price_candle import SolanaDexPriceCandle
 from ...types.solana_dex_price_history import SolanaDexPriceHistory
@@ -21,6 +23,7 @@ from ...types.solana_dex_wallet_profile_search_payload_query import SolanaDexWal
 from .raw_client import AsyncRawDexClient, RawDexClient
 from .types.get_swaps_dex_response import GetSwapsDexResponse
 from .types.get_trades_dex_response import GetTradesDexResponse
+from .types.search_position_profiles_dex_response import SearchPositionProfilesDexResponse
 from .types.search_token_profiles_dex_response import SearchTokenProfilesDexResponse
 from .types.search_wallet_profiles_dex_response import SearchWalletProfilesDexResponse
 
@@ -293,6 +296,133 @@ class DexClient:
         """
         _response = self._raw_client.search_token_profiles(
             query=query,
+            filter=filter,
+            sort=sort,
+            dynamic_labels=dynamic_labels,
+            options=options,
+            limit=limit,
+            cursor=cursor,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def get_position_profile(
+        self,
+        *,
+        wallet: str,
+        token: str,
+        options: typing.Optional[SolanaDexPositionProfilePayloadOptions] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SolanaDexPositionProfile:
+        """
+        Returns a position profile for a specific wallet-token pair.
+
+        Parameters
+        ----------
+        wallet : str
+            Wallet address of the position to retrieve.
+
+        token : str
+            Token address of the position to retrieve.
+
+        options : typing.Optional[SolanaDexPositionProfilePayloadOptions]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SolanaDexPositionProfile
+            Position profile for the specified wallet-token pair.
+
+        Examples
+        --------
+        from prism import Client
+        from prism.api import SolanaDexPositionProfilePayloadOptions
+
+        client = Client(
+            api_key="YOUR_API_KEY",
+        )
+        client.api.solana.dex.get_position_profile(
+            wallet="suqh5sHtr8HyJ7q8scBimULPkPpA557prMG47xCHQfK",
+            token="Z4d9YXR4pSkdKcu9UBcwxHp7i32buzdDtAR1b1Gbonk",
+            options=SolanaDexPositionProfilePayloadOptions(
+                include_metadata=True,
+                include_labels=True,
+                include_metrics=["7d"],
+            ),
+        )
+        """
+        _response = self._raw_client.get_position_profile(
+            wallet=wallet, token=token, options=options, request_options=request_options
+        )
+        return _response.data
+
+    def search_position_profiles(
+        self,
+        *,
+        filter: typing.Optional[SolanaDexProfileSearchPayloadFilter] = OMIT,
+        sort: typing.Optional[SolanaDexProfileSearchPayloadSort] = OMIT,
+        dynamic_labels: typing.Optional[SolanaDexProfileSearchPayloadDynamicLabels] = OMIT,
+        options: typing.Optional[SolanaDexPositionProfilePayloadOptions] = OMIT,
+        limit: typing.Optional[int] = OMIT,
+        cursor: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SearchPositionProfilesDexResponse:
+        """
+        Filter, query, and sort position profiles based on specified metrics and conditions.
+
+        Parameters
+        ----------
+        filter : typing.Optional[SolanaDexProfileSearchPayloadFilter]
+
+        sort : typing.Optional[SolanaDexProfileSearchPayloadSort]
+
+        dynamic_labels : typing.Optional[SolanaDexProfileSearchPayloadDynamicLabels]
+
+        options : typing.Optional[SolanaDexPositionProfilePayloadOptions]
+
+        limit : typing.Optional[int]
+            Maximum number of results to return in a single page.
+
+        cursor : typing.Optional[str]
+            Opaque cursor returned by a previous response. Pass it to fetch the next page of results.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SearchPositionProfilesDexResponse
+            List of position profiles found from the search.
+
+        Examples
+        --------
+        from prism import Client
+        from prism.api import (
+            SolanaDexPositionProfilePayloadOptions,
+            SolanaDexProfileSearchPayloadFilter,
+            SolanaDexProfileSearchPayloadSort,
+        )
+
+        client = Client(
+            api_key="YOUR_API_KEY",
+        )
+        client.api.solana.dex.search_position_profiles(
+            limit=10,
+            sort=SolanaDexProfileSearchPayloadSort(
+                field="metrics.7d.pnl",
+                direction="desc",
+            ),
+            dynamic_labels={"winner": SolanaDexProfileSearchPayloadFilter()},
+            options=SolanaDexPositionProfilePayloadOptions(
+                include_metadata=True,
+                include_labels=True,
+                include_metrics=["7d"],
+            ),
+        )
+        """
+        _response = self._raw_client.search_position_profiles(
             filter=filter,
             sort=sort,
             dynamic_labels=dynamic_labels,
@@ -925,6 +1055,149 @@ class AsyncDexClient:
         """
         _response = await self._raw_client.search_token_profiles(
             query=query,
+            filter=filter,
+            sort=sort,
+            dynamic_labels=dynamic_labels,
+            options=options,
+            limit=limit,
+            cursor=cursor,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def get_position_profile(
+        self,
+        *,
+        wallet: str,
+        token: str,
+        options: typing.Optional[SolanaDexPositionProfilePayloadOptions] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SolanaDexPositionProfile:
+        """
+        Returns a position profile for a specific wallet-token pair.
+
+        Parameters
+        ----------
+        wallet : str
+            Wallet address of the position to retrieve.
+
+        token : str
+            Token address of the position to retrieve.
+
+        options : typing.Optional[SolanaDexPositionProfilePayloadOptions]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SolanaDexPositionProfile
+            Position profile for the specified wallet-token pair.
+
+        Examples
+        --------
+        import asyncio
+
+        from prism import AsyncClient
+        from prism.api import SolanaDexPositionProfilePayloadOptions
+
+        client = AsyncClient(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.api.solana.dex.get_position_profile(
+                wallet="suqh5sHtr8HyJ7q8scBimULPkPpA557prMG47xCHQfK",
+                token="Z4d9YXR4pSkdKcu9UBcwxHp7i32buzdDtAR1b1Gbonk",
+                options=SolanaDexPositionProfilePayloadOptions(
+                    include_metadata=True,
+                    include_labels=True,
+                    include_metrics=["7d"],
+                ),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_position_profile(
+            wallet=wallet, token=token, options=options, request_options=request_options
+        )
+        return _response.data
+
+    async def search_position_profiles(
+        self,
+        *,
+        filter: typing.Optional[SolanaDexProfileSearchPayloadFilter] = OMIT,
+        sort: typing.Optional[SolanaDexProfileSearchPayloadSort] = OMIT,
+        dynamic_labels: typing.Optional[SolanaDexProfileSearchPayloadDynamicLabels] = OMIT,
+        options: typing.Optional[SolanaDexPositionProfilePayloadOptions] = OMIT,
+        limit: typing.Optional[int] = OMIT,
+        cursor: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SearchPositionProfilesDexResponse:
+        """
+        Filter, query, and sort position profiles based on specified metrics and conditions.
+
+        Parameters
+        ----------
+        filter : typing.Optional[SolanaDexProfileSearchPayloadFilter]
+
+        sort : typing.Optional[SolanaDexProfileSearchPayloadSort]
+
+        dynamic_labels : typing.Optional[SolanaDexProfileSearchPayloadDynamicLabels]
+
+        options : typing.Optional[SolanaDexPositionProfilePayloadOptions]
+
+        limit : typing.Optional[int]
+            Maximum number of results to return in a single page.
+
+        cursor : typing.Optional[str]
+            Opaque cursor returned by a previous response. Pass it to fetch the next page of results.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SearchPositionProfilesDexResponse
+            List of position profiles found from the search.
+
+        Examples
+        --------
+        import asyncio
+
+        from prism import AsyncClient
+        from prism.api import (
+            SolanaDexPositionProfilePayloadOptions,
+            SolanaDexProfileSearchPayloadFilter,
+            SolanaDexProfileSearchPayloadSort,
+        )
+
+        client = AsyncClient(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.api.solana.dex.search_position_profiles(
+                limit=10,
+                sort=SolanaDexProfileSearchPayloadSort(
+                    field="metrics.7d.pnl",
+                    direction="desc",
+                ),
+                dynamic_labels={"winner": SolanaDexProfileSearchPayloadFilter()},
+                options=SolanaDexPositionProfilePayloadOptions(
+                    include_metadata=True,
+                    include_labels=True,
+                    include_metrics=["7d"],
+                ),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.search_position_profiles(
             filter=filter,
             sort=sort,
             dynamic_labels=dynamic_labels,

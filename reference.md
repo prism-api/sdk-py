@@ -464,6 +464,232 @@ client.api.solana.dex.search_token_profiles(
 </dl>
 </details>
 
+<details><summary><code>client.api.solana.dex.<a href="src/prism/api/solana/dex/client.py">get_position_profile</a>(...) -> SolanaDexPositionProfile</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a position profile for a specific wallet-token pair.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from prism import Client
+from prism.environment import ClientEnvironment
+from prism.api import SolanaDexPositionProfilePayloadOptions
+
+client = Client(
+    api_key="<value>",
+    environment=ClientEnvironment.PRODUCTION,
+)
+
+client.api.solana.dex.get_position_profile(
+    wallet="suqh5sHtr8HyJ7q8scBimULPkPpA557prMG47xCHQfK",
+    token="Z4d9YXR4pSkdKcu9UBcwxHp7i32buzdDtAR1b1Gbonk",
+    options=SolanaDexPositionProfilePayloadOptions(
+        include_metadata=True,
+        include_labels=True,
+        include_metrics=[
+            "7d"
+        ],
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**wallet:** `str` — Wallet address of the position to retrieve.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**token:** `str` — Token address of the position to retrieve.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**options:** `typing.Optional[SolanaDexPositionProfilePayloadOptions]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.api.solana.dex.<a href="src/prism/api/solana/dex/client.py">search_position_profiles</a>(...) -> SearchPositionProfilesDexResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Filter, query, and sort position profiles based on specified metrics and conditions.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from prism import Client
+from prism.environment import ClientEnvironment
+from prism.api import SolanaDexProfileSearchPayloadSort, SolanaDexProfileSearchPayloadFilter, SolanaDexPositionProfilePayloadOptions
+
+client = Client(
+    api_key="<value>",
+    environment=ClientEnvironment.PRODUCTION,
+)
+
+client.api.solana.dex.search_position_profiles(
+    limit=10,
+    sort=SolanaDexProfileSearchPayloadSort(
+        field="metrics.7d.pnl",
+        direction="desc",
+    ),
+    dynamic_labels={
+        "winner": SolanaDexProfileSearchPayloadFilter()
+    },
+    options=SolanaDexPositionProfilePayloadOptions(
+        include_metadata=True,
+        include_labels=True,
+        include_metrics=[
+            "7d"
+        ],
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Maximum number of results to return in a single page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — Opaque cursor returned by a previous response. Pass it to fetch the next page of results.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**filter:** `typing.Optional[SolanaDexProfileSearchPayloadFilter]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort:** `typing.Optional[SolanaDexProfileSearchPayloadSort]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**dynamic_labels:** `typing.Optional[SolanaDexProfileSearchPayloadDynamicLabels]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**options:** `typing.Optional[SolanaDexPositionProfilePayloadOptions]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.api.solana.dex.<a href="src/prism/api/solana/dex/client.py">get_trades</a>(...) -> GetTradesDexResponse</code></summary>
 <dl>
 <dd>

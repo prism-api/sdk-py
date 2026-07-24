@@ -5,6 +5,7 @@ import typing
 from .solana_assets_balance_change_message import SolanaAssetsBalanceChangeMessage
 from .solana_assets_transfer_message import SolanaAssetsTransferMessage
 from .solana_dex_pool_message import SolanaDexPoolMessage
+from .solana_dex_position_profile_message import SolanaDexPositionProfileMessage
 from .solana_dex_price_message import SolanaDexPriceMessage
 from .solana_dex_swap_message import SolanaDexSwapMessage
 from .solana_dex_token_profile_message import SolanaDexTokenProfileMessage
@@ -18,6 +19,7 @@ SubscriptionMessageData = typing.Union[
     SolanaDexPoolMessage,
     SolanaDexWalletProfileMessage,
     SolanaDexTokenProfileMessage,
+    SolanaDexPositionProfileMessage,
     SolanaAssetsTransferMessage,
     SolanaAssetsBalanceChangeMessage,
 ]

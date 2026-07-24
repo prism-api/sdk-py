@@ -9,12 +9,14 @@ if typing.TYPE_CHECKING:
     from .types import (
         GetSwapsDexResponse,
         GetTradesDexResponse,
+        SearchPositionProfilesDexResponse,
         SearchTokenProfilesDexResponse,
         SearchWalletProfilesDexResponse,
     )
 _dynamic_imports: typing.Dict[str, str] = {
     "GetSwapsDexResponse": ".types",
     "GetTradesDexResponse": ".types",
+    "SearchPositionProfilesDexResponse": ".types",
     "SearchTokenProfilesDexResponse": ".types",
     "SearchWalletProfilesDexResponse": ".types",
 }
@@ -44,6 +46,7 @@ def __dir__():
 __all__ = [
     "GetSwapsDexResponse",
     "GetTradesDexResponse",
+    "SearchPositionProfilesDexResponse",
     "SearchTokenProfilesDexResponse",
     "SearchWalletProfilesDexResponse",
 ]
