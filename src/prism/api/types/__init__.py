@@ -7,6 +7,51 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .bad_request_error_body import BadRequestErrorBody
+    from .evm_dex_position_profile import EvmDexPositionProfile
+    from .evm_dex_position_profile_metadata import EvmDexPositionProfileMetadata
+    from .evm_dex_position_profile_metrics import EvmDexPositionProfileMetrics
+    from .evm_dex_position_profile_payload_options import EvmDexPositionProfilePayloadOptions
+    from .evm_dex_position_profile_time_window_enum import EvmDexPositionProfileTimeWindowEnum
+    from .evm_dex_price import EvmDexPrice
+    from .evm_dex_price_candle import EvmDexPriceCandle
+    from .evm_dex_price_history import EvmDexPriceHistory
+    from .evm_dex_price_snapshot import EvmDexPriceSnapshot
+    from .evm_dex_price_stats import EvmDexPriceStats
+    from .evm_dex_profile_search_payload_filter import EvmDexProfileSearchPayloadFilter
+    from .evm_dex_profile_search_payload_filter_operators import EvmDexProfileSearchPayloadFilterOperators
+    from .evm_dex_profile_search_payload_filter_operators_eq import EvmDexProfileSearchPayloadFilterOperatorsEq
+    from .evm_dex_profile_search_payload_filter_operators_in_item import EvmDexProfileSearchPayloadFilterOperatorsInItem
+    from .evm_dex_profile_search_payload_filter_operators_ne import EvmDexProfileSearchPayloadFilterOperatorsNe
+    from .evm_dex_profile_search_payload_filter_operators_nin_item import (
+        EvmDexProfileSearchPayloadFilterOperatorsNinItem,
+    )
+    from .evm_dex_profile_search_payload_query import EvmDexProfileSearchPayloadQuery
+    from .evm_dex_profile_search_payload_sort import EvmDexProfileSearchPayloadSort
+    from .evm_dex_profile_search_payload_sort_direction_enum import EvmDexProfileSearchPayloadSortDirectionEnum
+    from .evm_dex_protocol_field import EvmDexProtocolField
+    from .evm_dex_swap import EvmDexSwap
+    from .evm_dex_swap_type_enum import EvmDexSwapTypeEnum
+    from .evm_dex_token_profile import EvmDexTokenProfile
+    from .evm_dex_token_profile_metadata import EvmDexTokenProfileMetadata
+    from .evm_dex_token_profile_metrics import EvmDexTokenProfileMetrics
+    from .evm_dex_token_profile_payload_options import EvmDexTokenProfilePayloadOptions
+    from .evm_dex_token_profile_search_payload_query_field import EvmDexTokenProfileSearchPayloadQueryField
+    from .evm_dex_token_profile_search_payload_query_field_targets_enum import (
+        EvmDexTokenProfileSearchPayloadQueryFieldTargetsEnum,
+    )
+    from .evm_dex_token_profile_time_window_enum import EvmDexTokenProfileTimeWindowEnum
+    from .evm_dex_trade import EvmDexTrade
+    from .evm_dex_trade_direction_enum import EvmDexTradeDirectionEnum
+    from .evm_dex_trade_position_state_enum import EvmDexTradePositionStateEnum
+    from .evm_dex_wallet_profile import EvmDexWalletProfile
+    from .evm_dex_wallet_profile_metadata import EvmDexWalletProfileMetadata
+    from .evm_dex_wallet_profile_metrics import EvmDexWalletProfileMetrics
+    from .evm_dex_wallet_profile_payload_options import EvmDexWalletProfilePayloadOptions
+    from .evm_dex_wallet_profile_search_payload_query import EvmDexWalletProfileSearchPayloadQuery
+    from .evm_dex_wallet_profile_search_payload_query_targets_enum import (
+        EvmDexWalletProfileSearchPayloadQueryTargetsEnum,
+    )
+    from .evm_dex_wallet_profile_time_window_enum import EvmDexWalletProfileTimeWindowEnum
     from .forbidden_error_body import ForbiddenErrorBody
     from .internal_server_error_body import InternalServerErrorBody
     from .paginated_response import PaginatedResponse
@@ -71,6 +116,45 @@ if typing.TYPE_CHECKING:
     from .unauthorized_error_body import UnauthorizedErrorBody
 _dynamic_imports: typing.Dict[str, str] = {
     "BadRequestErrorBody": ".bad_request_error_body",
+    "EvmDexPositionProfile": ".evm_dex_position_profile",
+    "EvmDexPositionProfileMetadata": ".evm_dex_position_profile_metadata",
+    "EvmDexPositionProfileMetrics": ".evm_dex_position_profile_metrics",
+    "EvmDexPositionProfilePayloadOptions": ".evm_dex_position_profile_payload_options",
+    "EvmDexPositionProfileTimeWindowEnum": ".evm_dex_position_profile_time_window_enum",
+    "EvmDexPrice": ".evm_dex_price",
+    "EvmDexPriceCandle": ".evm_dex_price_candle",
+    "EvmDexPriceHistory": ".evm_dex_price_history",
+    "EvmDexPriceSnapshot": ".evm_dex_price_snapshot",
+    "EvmDexPriceStats": ".evm_dex_price_stats",
+    "EvmDexProfileSearchPayloadFilter": ".evm_dex_profile_search_payload_filter",
+    "EvmDexProfileSearchPayloadFilterOperators": ".evm_dex_profile_search_payload_filter_operators",
+    "EvmDexProfileSearchPayloadFilterOperatorsEq": ".evm_dex_profile_search_payload_filter_operators_eq",
+    "EvmDexProfileSearchPayloadFilterOperatorsInItem": ".evm_dex_profile_search_payload_filter_operators_in_item",
+    "EvmDexProfileSearchPayloadFilterOperatorsNe": ".evm_dex_profile_search_payload_filter_operators_ne",
+    "EvmDexProfileSearchPayloadFilterOperatorsNinItem": ".evm_dex_profile_search_payload_filter_operators_nin_item",
+    "EvmDexProfileSearchPayloadQuery": ".evm_dex_profile_search_payload_query",
+    "EvmDexProfileSearchPayloadSort": ".evm_dex_profile_search_payload_sort",
+    "EvmDexProfileSearchPayloadSortDirectionEnum": ".evm_dex_profile_search_payload_sort_direction_enum",
+    "EvmDexProtocolField": ".evm_dex_protocol_field",
+    "EvmDexSwap": ".evm_dex_swap",
+    "EvmDexSwapTypeEnum": ".evm_dex_swap_type_enum",
+    "EvmDexTokenProfile": ".evm_dex_token_profile",
+    "EvmDexTokenProfileMetadata": ".evm_dex_token_profile_metadata",
+    "EvmDexTokenProfileMetrics": ".evm_dex_token_profile_metrics",
+    "EvmDexTokenProfilePayloadOptions": ".evm_dex_token_profile_payload_options",
+    "EvmDexTokenProfileSearchPayloadQueryField": ".evm_dex_token_profile_search_payload_query_field",
+    "EvmDexTokenProfileSearchPayloadQueryFieldTargetsEnum": ".evm_dex_token_profile_search_payload_query_field_targets_enum",
+    "EvmDexTokenProfileTimeWindowEnum": ".evm_dex_token_profile_time_window_enum",
+    "EvmDexTrade": ".evm_dex_trade",
+    "EvmDexTradeDirectionEnum": ".evm_dex_trade_direction_enum",
+    "EvmDexTradePositionStateEnum": ".evm_dex_trade_position_state_enum",
+    "EvmDexWalletProfile": ".evm_dex_wallet_profile",
+    "EvmDexWalletProfileMetadata": ".evm_dex_wallet_profile_metadata",
+    "EvmDexWalletProfileMetrics": ".evm_dex_wallet_profile_metrics",
+    "EvmDexWalletProfilePayloadOptions": ".evm_dex_wallet_profile_payload_options",
+    "EvmDexWalletProfileSearchPayloadQuery": ".evm_dex_wallet_profile_search_payload_query",
+    "EvmDexWalletProfileSearchPayloadQueryTargetsEnum": ".evm_dex_wallet_profile_search_payload_query_targets_enum",
+    "EvmDexWalletProfileTimeWindowEnum": ".evm_dex_wallet_profile_time_window_enum",
     "ForbiddenErrorBody": ".forbidden_error_body",
     "InternalServerErrorBody": ".internal_server_error_body",
     "PaginatedResponse": ".paginated_response",
@@ -151,6 +235,45 @@ def __dir__():
 
 __all__ = [
     "BadRequestErrorBody",
+    "EvmDexPositionProfile",
+    "EvmDexPositionProfileMetadata",
+    "EvmDexPositionProfileMetrics",
+    "EvmDexPositionProfilePayloadOptions",
+    "EvmDexPositionProfileTimeWindowEnum",
+    "EvmDexPrice",
+    "EvmDexPriceCandle",
+    "EvmDexPriceHistory",
+    "EvmDexPriceSnapshot",
+    "EvmDexPriceStats",
+    "EvmDexProfileSearchPayloadFilter",
+    "EvmDexProfileSearchPayloadFilterOperators",
+    "EvmDexProfileSearchPayloadFilterOperatorsEq",
+    "EvmDexProfileSearchPayloadFilterOperatorsInItem",
+    "EvmDexProfileSearchPayloadFilterOperatorsNe",
+    "EvmDexProfileSearchPayloadFilterOperatorsNinItem",
+    "EvmDexProfileSearchPayloadQuery",
+    "EvmDexProfileSearchPayloadSort",
+    "EvmDexProfileSearchPayloadSortDirectionEnum",
+    "EvmDexProtocolField",
+    "EvmDexSwap",
+    "EvmDexSwapTypeEnum",
+    "EvmDexTokenProfile",
+    "EvmDexTokenProfileMetadata",
+    "EvmDexTokenProfileMetrics",
+    "EvmDexTokenProfilePayloadOptions",
+    "EvmDexTokenProfileSearchPayloadQueryField",
+    "EvmDexTokenProfileSearchPayloadQueryFieldTargetsEnum",
+    "EvmDexTokenProfileTimeWindowEnum",
+    "EvmDexTrade",
+    "EvmDexTradeDirectionEnum",
+    "EvmDexTradePositionStateEnum",
+    "EvmDexWalletProfile",
+    "EvmDexWalletProfileMetadata",
+    "EvmDexWalletProfileMetrics",
+    "EvmDexWalletProfilePayloadOptions",
+    "EvmDexWalletProfileSearchPayloadQuery",
+    "EvmDexWalletProfileSearchPayloadQueryTargetsEnum",
+    "EvmDexWalletProfileTimeWindowEnum",
     "ForbiddenErrorBody",
     "InternalServerErrorBody",
     "PaginatedResponse",

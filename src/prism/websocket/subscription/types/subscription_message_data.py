@@ -2,6 +2,13 @@
 
 import typing
 
+from .evm_assets_transfer_message import EvmAssetsTransferMessage
+from .evm_dex_pool_message import EvmDexPoolMessage
+from .evm_dex_price_message import EvmDexPriceMessage
+from .evm_dex_swap_message import EvmDexSwapMessage
+from .evm_dex_token_profile_message import EvmDexTokenProfileMessage
+from .evm_dex_trade_message import EvmDexTradeMessage
+from .evm_dex_wallet_profile_message import EvmDexWalletProfileMessage
 from .solana_assets_balance_change_message import SolanaAssetsBalanceChangeMessage
 from .solana_assets_transfer_message import SolanaAssetsTransferMessage
 from .solana_dex_pool_message import SolanaDexPoolMessage
@@ -22,4 +29,11 @@ SubscriptionMessageData = typing.Union[
     SolanaDexPositionProfileMessage,
     SolanaAssetsTransferMessage,
     SolanaAssetsBalanceChangeMessage,
+    EvmDexPriceMessage,
+    EvmDexSwapMessage,
+    EvmDexTradeMessage,
+    EvmDexPoolMessage,
+    EvmDexWalletProfileMessage,
+    EvmDexTokenProfileMessage,
+    EvmAssetsTransferMessage,
 ]

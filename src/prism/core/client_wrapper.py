@@ -29,12 +29,12 @@ class BaseClientWrapper:
         import platform
 
         headers: typing.Dict[str, str] = {
-            "User-Agent": "prism-py-sdk/1.4.0",
+            "User-Agent": "prism-py-sdk/1.5.0",
             "X-Fern-Language": "Python",
             "X-Fern-Runtime": f"python/{platform.python_version()}",
             "X-Fern-Platform": f"{platform.system().lower()}/{platform.release()}",
             "X-Fern-SDK-Name": "prism-py-sdk",
-            "X-Fern-SDK-Version": "1.4.0",
+            "X-Fern-SDK-Version": "1.5.0",
             **(self.get_custom_headers() or {}),
         }
         headers["x-api-key"] = self.api_key

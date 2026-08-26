@@ -13,6 +13,13 @@ SubscriptionTopicEnum = typing.Union[
         "solana.dex.profiles.position",
         "solana.assets.transfers",
         "solana.assets.balance-changes",
+        "evm.dex.prices",
+        "evm.dex.swaps",
+        "evm.dex.trades",
+        "evm.dex.pools",
+        "evm.dex.profiles.wallet",
+        "evm.dex.profiles.token",
+        "evm.assets.transfers",
     ],
     typing.Any,
 ]
