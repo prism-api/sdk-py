@@ -42,17 +42,17 @@ Instantiate and use the client with the following:
 
 ```python
 from prism import Client
-from prism.api import SolanaDexWalletProfilePayloadOptions
+from prism.api import EvmDexWalletProfilePayloadOptions
 
 client = Client(
     api_key="<value>",
 )
 
-client.api.solana.dex.get_wallet_profile(
-    wallet="suqh5sHtr8HyJ7q8scBimULPkPpA557prMG47xCHQfK",
-    options=SolanaDexWalletProfilePayloadOptions(
+client.api.evm.dex.get_wallet_profile(
+    chain_id=1,
+    wallet="0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+    options=EvmDexWalletProfilePayloadOptions(
         include_metadata=True,
-        include_labels=True,
         include_metrics=[
             "7d"
         ],
@@ -79,7 +79,7 @@ The SDK also exports an `async` client so that you can make non-blocking calls t
 
 ```python
 import asyncio
-from prism.api import SolanaDexWalletProfilePayloadOptions
+from prism.api import EvmDexWalletProfilePayloadOptions
 
 from prism import AsyncClient
 
@@ -89,11 +89,11 @@ client = AsyncClient(
 
 
 async def main() -> None:
-    await client.api.solana.dex.get_wallet_profile(
-        wallet="suqh5sHtr8HyJ7q8scBimULPkPpA557prMG47xCHQfK",
-        options=SolanaDexWalletProfilePayloadOptions(
+    await client.api.evm.dex.get_wallet_profile(
+        chain_id=1,
+        wallet="0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+        options=EvmDexWalletProfilePayloadOptions(
             include_metadata=True,
-            include_labels=True,
             include_metrics=[
                 "7d"
             ],
@@ -113,7 +113,7 @@ will be thrown.
 from prism.core.api_error import ApiError
 
 try:
-    client.api.solana.dex.get_wallet_profile(...)
+    client.api.evm.dex.get_wallet_profile(...)
 except ApiError as e:
     print(e.status_code)
     print(e.body)
@@ -160,7 +160,7 @@ The `.with_raw_response` property returns a "raw" client that can be used to acc
 from prism import Client
 
 client = Client(...)
-response = client.api.solana.dex.with_raw_response.get_wallet_profile(...)
+response = client.api.evm.dex.with_raw_response.get_wallet_profile(...)
 print(response.headers)  # access the response headers
 print(response.status_code)  # access the response status code
 print(response.data)  # access the underlying object
@@ -191,7 +191,7 @@ Which status codes are retried depends on the `retryStatusCodes` generator confi
 Use the `max_retries` request option to configure this behavior.
 
 ```python
-client.api.solana.dex.get_wallet_profile(..., request_options={
+client.api.evm.dex.get_wallet_profile(..., request_options={
     "max_retries": 1
 })
 ```
@@ -206,7 +206,7 @@ from prism import Client
 client = Client(..., timeout=20.0)
 
 # Override timeout for a specific method
-client.api.solana.dex.get_wallet_profile(..., request_options={
+client.api.evm.dex.get_wallet_profile(..., request_options={
     "timeout_in_seconds": 1
 })
 ```

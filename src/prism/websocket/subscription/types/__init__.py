@@ -6,6 +6,23 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .evm_assets_transfer_message import EvmAssetsTransferMessage
+    from .evm_assets_transfer_type_enum import EvmAssetsTransferTypeEnum
+    from .evm_dex_pool_message import EvmDexPoolMessage
+    from .evm_dex_pool_message_event_type_enum import EvmDexPoolMessageEventTypeEnum
+    from .evm_dex_pool_message_vault import EvmDexPoolMessageVault
+    from .evm_dex_price_message import EvmDexPriceMessage
+    from .evm_dex_swap_message import EvmDexSwapMessage
+    from .evm_dex_swap_type_enum import EvmDexSwapTypeEnum
+    from .evm_dex_token_profile_message import EvmDexTokenProfileMessage
+    from .evm_dex_token_profile_metadata import EvmDexTokenProfileMetadata
+    from .evm_dex_token_profile_metrics import EvmDexTokenProfileMetrics
+    from .evm_dex_trade_direction_enum import EvmDexTradeDirectionEnum
+    from .evm_dex_trade_message import EvmDexTradeMessage
+    from .evm_dex_trade_position_state_enum import EvmDexTradePositionStateEnum
+    from .evm_dex_wallet_profile_message import EvmDexWalletProfileMessage
+    from .evm_dex_wallet_profile_metadata import EvmDexWalletProfileMetadata
+    from .evm_dex_wallet_profile_metrics import EvmDexWalletProfileMetrics
     from .solana_assets_balance_change_message import SolanaAssetsBalanceChangeMessage
     from .solana_assets_balance_change_type_enum import SolanaAssetsBalanceChangeTypeEnum
     from .solana_assets_transfer_message import SolanaAssetsTransferMessage
@@ -40,6 +57,23 @@ if typing.TYPE_CHECKING:
     from .subscription_topic_enum import SubscriptionTopicEnum
     from .unsubscribe_payload import UnsubscribePayload
 _dynamic_imports: typing.Dict[str, str] = {
+    "EvmAssetsTransferMessage": ".evm_assets_transfer_message",
+    "EvmAssetsTransferTypeEnum": ".evm_assets_transfer_type_enum",
+    "EvmDexPoolMessage": ".evm_dex_pool_message",
+    "EvmDexPoolMessageEventTypeEnum": ".evm_dex_pool_message_event_type_enum",
+    "EvmDexPoolMessageVault": ".evm_dex_pool_message_vault",
+    "EvmDexPriceMessage": ".evm_dex_price_message",
+    "EvmDexSwapMessage": ".evm_dex_swap_message",
+    "EvmDexSwapTypeEnum": ".evm_dex_swap_type_enum",
+    "EvmDexTokenProfileMessage": ".evm_dex_token_profile_message",
+    "EvmDexTokenProfileMetadata": ".evm_dex_token_profile_metadata",
+    "EvmDexTokenProfileMetrics": ".evm_dex_token_profile_metrics",
+    "EvmDexTradeDirectionEnum": ".evm_dex_trade_direction_enum",
+    "EvmDexTradeMessage": ".evm_dex_trade_message",
+    "EvmDexTradePositionStateEnum": ".evm_dex_trade_position_state_enum",
+    "EvmDexWalletProfileMessage": ".evm_dex_wallet_profile_message",
+    "EvmDexWalletProfileMetadata": ".evm_dex_wallet_profile_metadata",
+    "EvmDexWalletProfileMetrics": ".evm_dex_wallet_profile_metrics",
     "SolanaAssetsBalanceChangeMessage": ".solana_assets_balance_change_message",
     "SolanaAssetsBalanceChangeTypeEnum": ".solana_assets_balance_change_type_enum",
     "SolanaAssetsTransferMessage": ".solana_assets_transfer_message",
@@ -98,6 +132,23 @@ def __dir__():
 
 
 __all__ = [
+    "EvmAssetsTransferMessage",
+    "EvmAssetsTransferTypeEnum",
+    "EvmDexPoolMessage",
+    "EvmDexPoolMessageEventTypeEnum",
+    "EvmDexPoolMessageVault",
+    "EvmDexPriceMessage",
+    "EvmDexSwapMessage",
+    "EvmDexSwapTypeEnum",
+    "EvmDexTokenProfileMessage",
+    "EvmDexTokenProfileMetadata",
+    "EvmDexTokenProfileMetrics",
+    "EvmDexTradeDirectionEnum",
+    "EvmDexTradeMessage",
+    "EvmDexTradePositionStateEnum",
+    "EvmDexWalletProfileMessage",
+    "EvmDexWalletProfileMetadata",
+    "EvmDexWalletProfileMetrics",
     "SolanaAssetsBalanceChangeMessage",
     "SolanaAssetsBalanceChangeTypeEnum",
     "SolanaAssetsTransferMessage",

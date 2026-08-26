@@ -6,6 +6,13 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .subscribe_evm_assets_transfers_params import SubscribeEvmAssetsTransfersParams
+    from .subscribe_evm_dex_pools_params import SubscribeEvmDexPoolsParams
+    from .subscribe_evm_dex_prices_params import SubscribeEvmDexPricesParams
+    from .subscribe_evm_dex_swaps_params import SubscribeEvmDexSwapsParams
+    from .subscribe_evm_dex_token_profiles_params import SubscribeEvmDexTokenProfilesParams
+    from .subscribe_evm_dex_trades_params import SubscribeEvmDexTradesParams
+    from .subscribe_evm_dex_wallet_profiles_params import SubscribeEvmDexWalletProfilesParams
     from .subscribe_solana_assets_balance_changes_params import SubscribeSolanaAssetsBalanceChangesParams
     from .subscribe_solana_assets_transfers_params import SubscribeSolanaAssetsTransfersParams
     from .subscribe_solana_dex_pools_params import SubscribeSolanaDexPoolsParams
@@ -16,6 +23,13 @@ if typing.TYPE_CHECKING:
     from .subscribe_solana_dex_trades_params import SubscribeSolanaDexTradesParams
     from .subscribe_solana_dex_wallet_profiles_params import SubscribeSolanaDexWalletProfilesParams
 _dynamic_imports: typing.Dict[str, str] = {
+    "SubscribeEvmAssetsTransfersParams": ".subscribe_evm_assets_transfers_params",
+    "SubscribeEvmDexPoolsParams": ".subscribe_evm_dex_pools_params",
+    "SubscribeEvmDexPricesParams": ".subscribe_evm_dex_prices_params",
+    "SubscribeEvmDexSwapsParams": ".subscribe_evm_dex_swaps_params",
+    "SubscribeEvmDexTokenProfilesParams": ".subscribe_evm_dex_token_profiles_params",
+    "SubscribeEvmDexTradesParams": ".subscribe_evm_dex_trades_params",
+    "SubscribeEvmDexWalletProfilesParams": ".subscribe_evm_dex_wallet_profiles_params",
     "SubscribeSolanaAssetsBalanceChangesParams": ".subscribe_solana_assets_balance_changes_params",
     "SubscribeSolanaAssetsTransfersParams": ".subscribe_solana_assets_transfers_params",
     "SubscribeSolanaDexPoolsParams": ".subscribe_solana_dex_pools_params",
@@ -50,6 +64,13 @@ def __dir__():
 
 
 __all__ = [
+    "SubscribeEvmAssetsTransfersParams",
+    "SubscribeEvmDexPoolsParams",
+    "SubscribeEvmDexPricesParams",
+    "SubscribeEvmDexSwapsParams",
+    "SubscribeEvmDexTokenProfilesParams",
+    "SubscribeEvmDexTradesParams",
+    "SubscribeEvmDexWalletProfilesParams",
     "SubscribeSolanaAssetsBalanceChangesParams",
     "SubscribeSolanaAssetsTransfersParams",
     "SubscribeSolanaDexPoolsParams",
