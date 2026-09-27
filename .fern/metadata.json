@@ -7,9 +7,9 @@
     "client_class_name": "Client",
     "should_generate_websocket_clients": true
   },
-  "originGitCommit": "e05980c278ad79442b2296a8950bd0eda88b1e14",
-  "originGitCommitIsDirty": false,
+  "originGitCommit": "b798e1602f59b77a6cbd80c3581a9af52015692e",
+  "originGitCommitIsDirty": true,
   "invokedBy": "manual",
-  "requestedVersion": "1.5.0",
-  "sdkVersion": "1.5.0"
+  "requestedVersion": "1.6.0",
+  "sdkVersion": "1.6.0"
 }

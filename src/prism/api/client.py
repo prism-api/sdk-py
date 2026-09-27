@@ -8,7 +8,6 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .raw_client import AsyncRawApiClient, RawApiClient
 
 if typing.TYPE_CHECKING:
-    from .evm.client import AsyncEvmClient, EvmClient
     from .solana.client import AsyncSolanaClient, SolanaClient
 
 
@@ -16,7 +15,6 @@ class ApiClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._raw_client = RawApiClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
-        self._evm: typing.Optional[EvmClient] = None
         self._solana: typing.Optional[SolanaClient] = None
 
     @property
@@ -31,14 +29,6 @@ class ApiClient:
         return self._raw_client
 
     @property
-    def evm(self):
-        if self._evm is None:
-            from .evm.client import EvmClient  # noqa: E402
-
-            self._evm = EvmClient(client_wrapper=self._client_wrapper)
-        return self._evm
-
-    @property
     def solana(self):
         if self._solana is None:
             from .solana.client import SolanaClient  # noqa: E402
@@ -51,7 +41,6 @@ class AsyncApiClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._raw_client = AsyncRawApiClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
-        self._evm: typing.Optional[AsyncEvmClient] = None
         self._solana: typing.Optional[AsyncSolanaClient] = None
 
     @property
@@ -64,14 +53,6 @@ class AsyncApiClient:
         AsyncRawApiClient
         """
         return self._raw_client
-
-    @property
-    def evm(self):
-        if self._evm is None:
-            from .evm.client import AsyncEvmClient  # noqa: E402
-
-            self._evm = AsyncEvmClient(client_wrapper=self._client_wrapper)
-        return self._evm
 
     @property
     def solana(self):
